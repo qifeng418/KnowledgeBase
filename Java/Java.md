@@ -55,3 +55,6 @@ Java programs consists of classes, which contain platform-neutral bytecodes that
 ### Q: What is Java Garbage Collection? How It Works?
 
 Ref: https://stackify.com/what-is-java-garbage-collection/#:~:text=Java%20garbage%20collection%20is%20the,Machine%2C%20or%20JVM%20for%20short.&text=The%20garbage%20collector%20finds%20these,them%20to%20free%20up%20memory.
+
+
+
