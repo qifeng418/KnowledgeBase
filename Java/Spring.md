@@ -1,7 +1,8 @@
 ## Spring AOP (Aspect Oriented Programming)
 
-Ref: https://howtodoinjava.com/interview-questions/top-spring-aop-interview-questions-with-answers/
 ### Q: Describe Spring AOP?
+
+[Answer Reference](https://howtodoinjava.com/interview-questions/top-spring-aop-interview-questions-with-answers/)
 
 compliments OOPs in the sense that it also provides modularity. In OOPs, key unit is Objects, but in AOP key unit is aspects or concerns (simply assume stand-alone modules in your application). Some aspects have centralized code but other aspects may be scattered or tangled e.g. logging or transactions. These scattered aspects are called cross-cutting concern. A cross-cutting concern is a concern that can affect the whole application and should be centralized in one location in code as possible, such as transaction management, authentication, logging, security etc.
 
