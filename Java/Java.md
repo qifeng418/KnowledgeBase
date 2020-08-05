@@ -18,9 +18,9 @@ The JVM is not platform independent. Java Virtual Machine (JVM) provides the env
 ### Q: Explain the JVM architecture.
 <img src="https://lh3.googleusercontent.com/mI9DsbikQHpvY6nkdOxfdEyFzCHbiG7oqDwRCW7ty4golJPXp2RClTaxqMlQuDqHdo09IvQynIJlz4fC7P2zC0HwcfXTQLVOmzDT_foGKSe53CID8tn_ZulFjPXtX_k1OGiZ_8hw" height="400" width="600" />
 
-ref: https://www.tutorialspoint.com/java_virtual_machine/java_virtual_machine_class_loader.htm
-
 ### Q: What is Class Loader?
+[Answer Reference](https://www.tutorialspoint.com/java_virtual_machine/java_virtual_machine_class_loader.htm)
+
 
 ### Q: What are the types of class loaders?
 
@@ -52,9 +52,22 @@ The Just-In-Time (JIT) compiler is a component of the runtime environment that i
 
 Java programs consists of classes, which contain platform-neutral bytecodes that can be interpreted by a JVM on many different computer architectures. At run time, the JVM loads the class files, determines the semantics of each individual bytecode, and performs the appropriate computation. The additional processor and memory usage during interpretation means that a Java application performs more slowly than a native application. The JIT compiler helps improve the performance of Java programs by compiling bytecodes into native machine code at run time. The JIT compiler is enabled by default. When a method has been compiled, the JVM calls the compiled code of that method directly instead of interpreting it.
 
-### Q: What is Java Garbage Collection? How It Works?
 
-Ref: https://stackify.com/what-is-java-garbage-collection/#:~:text=Java%20garbage%20collection%20is%20the,Machine%2C%20or%20JVM%20for%20short.&text=The%20garbage%20collector%20finds%20these,them%20to%20free%20up%20memory.
+
+[Answer Reference](https://stackify.com/what-is-java-garbage-collection/#:~:text=Java%20garbage%20collection%20is%20the,Machine%2C%20or%20JVM%20for%20short.&text=The%20garbage%20collector%20finds%20these,them%20to%20free%20up%20memory.)
+
+### Q: A Definition of Java Garbage Collection
+Java garbage collection is the process by which Java programs perform automatic memory management. Java programs compile to bytecode that can be run on a Java Virtual Machine, or JVM for short. When Java programs run on the JVM, objects are created on the heap, which is a portion of memory dedicated to the program. Eventually, some objects will no longer be needed. The garbage collector finds these unused objects and deletes them to free up memory.
+
+### Q: A Definition of Java Garbage Collection
+[Answer Reference](https://stackify.com/what-is-java-garbage-collection/#:~:text=Java%20garbage%20collection%20is%20the,Machine%2C%20or%20JVM%20for%20short.&text=The%20garbage%20collector%20finds%20these,them%20to%20free%20up%20memory.)
+
+[How Does GC Work in Java? (Detailed Explanation)](https://medium.com/@alitech_2017/how-does-garbage-collection-work-in-java-cf4e31343e43)
+
+Java garbage collection is the process by which Java programs perform automatic memory management. Java programs compile to bytecode that can be run on a Java Virtual Machine, or JVM for short. When Java programs run on the JVM, objects are created on the heap, which is a portion of memory dedicated to the program. Eventually, some objects will no longer be needed. The garbage collector finds these unused objects and deletes them to free up memory.
+
+
+### Q: How Java Garbage Collection Works?
 
 
 
