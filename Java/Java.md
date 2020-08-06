@@ -64,4 +64,3 @@ Java garbage collection is the process by which Java programs perform automatic 
 ### Q: How Java Garbage Collection Works?
 
 
-
