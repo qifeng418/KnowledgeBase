@@ -1,7 +1,66 @@
+## Spring 
+
+### Q: What is Spring?
+
+Spring is an open source development framework for enterprise Java. The core features of the Spring Framework can be used in developing any Java application, but there are extensions for building web applications on top of the Java EE platform. Spring framework targets to make J2EE development easier to use and promote good programming practice by enabling a POJO-based programming model.
+
+### Q: What are benefits of using spring?
+
+**Lightweight** − Spring is lightweight when it comes to size and transparency. The basic version of spring framework is around 2MB.
+
+**Inversion of control (IOC)** − Loose coupling is achieved in spring using the technique Inversion of Control. The objects give their dependencies instead of creating or looking for dependent objects.
+
+**Aspect oriented (AOP)** − Spring supports Aspect oriented programming and enables cohesive development by separating application business logic from system services.
+
+**Container** − Spring contains and manages the life cycle and configuration of application objects.
+
+**MVC Framework** − Spring's web framework is a well-designed web MVC framework, which provides a great alternative to web frameworks such as Struts or other over engineered or less popular web frameworks.
+
+**Transaction Management** − Spring provides a consistent transaction management interface that can scale down to a local transaction (using a single database, for example) and scale up to global transactions (using JTA, for example).
+
+**Exception Handling** − Spring provides a convenient API to translate technology-specific exceptions (thrown by JDBC, Hibernate, or JDO, for example) into consistent, unchecked exceptions.
+
+### Q: What are the different modules in Spring framework?
+
+<img src="https://docs.spring.io/spring/docs/4.0.x/spring-framework-reference/html/images/spring-overview.png" height="400" width="600" />
+
+### Q: What is Spring configuration file?
+Spring configuration file is an XML file. This file contains the classes information and describes how these classes are configured and introduced to each other.
+
+## Spring IoC Container
+
+### Q: What is Spring IOC Container?
+
+<img src="https://d1jnx9ba8s6j9r.cloudfront.net/blog/wp-content/uploads/2017/05/ioc-2.png" height="200" width="300" />
+
+At the core of the Spring Framework, lies the Spring container. The container creates the object, wires them together, configures them and manages their complete life cycle. The Spring container makes use of Dependency Injection to manage the components that make up an application. The container receives instructions for which objects to instantiate, configure, and assemble by reading the configuration metadata provided. This metadata can be provided either by XML, Java annotations or Java code.
+
+### Q: What is Dependency Injection?
+Dependency Injection (DI) is a design pattern used to implement IoC. It allows the creation of dependent objects outside of a class and provides those objects to a class through different ways. Using DI, we move the creation and binding of the dependent objects outside of the class that depends on them.
+
+It bastically means that you do not create your objects but describe how they should be created. You don't directly connect your components and services together in code but describe which services are needed by which components in a configuration file. A container (the IOC container) is then responsible for hooking it all up.
+
+### Q: What are the different types of IoC (dependency injection)?
+**Constructor-based dependency injection** − Constructor-based DI is accomplished when the container invokes a class constructor with a number of arguments, each representing a dependency on other class.
+
+**Setter-based dependency injection** − Setter-based DI is accomplished by the container calling setter methods on your beans after invoking a no-argument constructor or no-argument static factory method to instantiate your bean.
+
+### Q: Spring Setter vs. Constructor Injection
+1) The fundamental difference between setter and constructor injection, as their name implies, is How dependency is injected.  Setter injection in Spring uses setter methods like setDependency() to inject dependency on any bean managed by Spring's IOC container. On the other hand, constructor injection uses the constructor to inject dependency on any Spring-managed bean.
+
+2) Because of using the setter method, setter Injection in more readable than constructor injection in Spring configuration file usually applicationContext.xml . Since the setter method has name like setReporotService() by reading Spring XML config file you know which dependency you are setting. While in constructor injection, since it uses an index to inject the dependency, it's not as readable as setter injection and you need to refer either Java documentation or code to find which index corresponds to which property.
+
+3) Another difference between setter vs constructor injection in Spring and one of the drawbacks of setter injection is that it does not ensures dependency Injection. You can not guarantee that certain dependency is injected or not, which means you may have an object with incomplete dependency. On the other hand, constructor Injection does not allow you to construct an object until your dependencies are ready.
+
+4) One more drawback of setter Injection is Security. By using setter injection, you can override certain dependency which is not possible with constructor injection because every time you call the constructor, a new object is gets created.
+
+5) One of our reader Murali Mohan Reddy pointed out one more difference between Setter and Constructor Injection in Spring, where later can help if there is a circular dependency between two object A and B.
+
+
+
 ## Spring AOP (Aspect Oriented Programming)
 
 ### Q: Describe Spring AOP?
-
 [Answer Reference](https://howtodoinjava.com/interview-questions/top-spring-aop-interview-questions-with-answers/)
 
 compliments OOPs in the sense that it also provides modularity. In OOPs, key unit is Objects, but in AOP key unit is aspects or concerns (simply assume stand-alone modules in your application). Some aspects have centralized code but other aspects may be scattered or tangled e.g. logging or transactions. These scattered aspects are called cross-cutting concern. A cross-cutting concern is a concern that can affect the whole application and should be centralized in one location in code as possible, such as transaction management, authentication, logging, security etc.
