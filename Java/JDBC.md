@@ -4,6 +4,7 @@
 ## MyBatis
 
 ### Q: Understanding of MyBatis
+[Answer Reference](https://www.programmersought.com/article/8568335616/)
 
 mybatis is an excellent java-based persistence layer framework, which encapsulates jdbc internally, so that developers only need to pay attention to the sql statement itself, without the effort to deal with the complicated process of loading drivers, creating connections, creating statements, etc. .
 
