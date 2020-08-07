@@ -52,6 +52,15 @@ Declaring the XML version is very important for each XML document and platform n
 ### Q: What is XML DOM (XML Document)?
 Just like HTML, the XML DOM defines a standard way for accessing and manipulating XML documents. It presents an XML document as a tree-structure.
 
+### Q: DOM Vs SAX
+|| DOM(Document Object Model) Parser | SAX (Simple API for XML) Parser |
+| --- | --- | --- |
+| Abbreviation | DOM stands for Document Object Model | SAX stands for Simple API for XML Parsing |
+| Type |Load entire memory and keep in tree structure | event based parser |
+| Size of Document | good for smaller size	| good to choose for larger size of file |
+| Load | Load entire document in memory | does not load entire document |
+| Suiable | better suitable for smaller and efficient memory | SAX is suitable for larger XML doc |
+
 ### Q: What is XPath (XML Path)?
 XPath is used to find information in an XML document and contains standard functions. XPath is the major element in XSLT, and it is w3c recommendation.
 
