@@ -14,7 +14,10 @@ A web client is a software that helps in communicating with the server. Some of 
 ### Q: What is Tomcat?
 Apache Tomcat is an open-source implementation of the Java Servlet, JavaServer Pages, Java Expression Language and WebSocket technologies. Tomcat provides a "pure Java" HTTP web server environment in which Java code can run.
 
+### Q: Is Tomcat a Web Server or a Web Container?
+It's both a web server (supports HTTP protocol) and a web container (supports JSP/Servlet API, also called "servlet container" at times).
 
+However, it's not really meant to function as a high performance web server, nor does it include some features typical of a web server. Tomcat is meant to be used in conjunction with the Apache web server, where Apache manages static pages, caching, redirection, etc. and Tomcat handles the container (web application) functions. You'll often hear the phrase "Apache Tomcat" together, which is both a proper attribution of the Tomcat project (as part of the Apache Foundation), but also appropriate as a label, as they're usually used together as a package.
 
 ## 📖 Servlet
 
@@ -76,10 +79,6 @@ Miscellaneous Task: Servlet container manages the resource pool, perform memory 
 3) Ideal programming language for interacting with database based on the user’s request.
 4) A servlet can handle multiple request simultaneously which makes them a perfect choice for the high performing applications.
 
-Q 5. Why Servlet is better than CGI?
-1) Servlet responses faster than CGI because it uses the multithreading concept to service each request. CGI performance is not that good as it creates a new object for each request while servlet allots a new thread for each request.
-2) Learning and implementing servlet is quite easier compared to CGI.
-3) Memory consumption is low in servlet compared to CGI.
 
 ### Q: When is Servlet loaded?
 1) When servlet container receives the **first request** from client(browser).
@@ -146,7 +145,7 @@ Q 20. What are the different types of session tracking mechanism supported by Se
 Q 21. How URL rewriting maintains session?
 In URL rewriting method, the session tracking data has been appended at the end of the URL to track the session.
 
-Q 22. Explain Servlet chaining?
+### Q: Explain Servlet chaining?
 Servlet chaining is a concept where the request is processed in a chain of servlets. First Servlet processes the request partially and passes to the second one, then second servlet process it and passes to third one and so on. The last servlet returns the response to the client (browser).
 
 Q 23. How to invalidate a session in servlet?
