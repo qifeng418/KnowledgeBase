@@ -73,13 +73,6 @@ Miscellaneous Task: Servlet container manages the resource pool, perform memory 
 4) Servicing the request: In this phase the servlet service the client request by calling the service() method.
 5) Destroy: Last phase of servlet life cycle. The destroy() method free up the servlet instance so that it can be garbage collected.
 
-### Q: Why we use Servlets?
-1) To process the input data submitted by user.
-2) Generate and return the dynamic response to the user based on the request.
-3) Ideal programming language for interacting with database based on the user’s request.
-4) A servlet can handle multiple request simultaneously which makes them a perfect choice for the high performing applications.
-
-
 ### Q: When is Servlet loaded?
 1) When servlet container receives the **first request** from client(browser).
 2) Admin of the application manually loads the servlet.
