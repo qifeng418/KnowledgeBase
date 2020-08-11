@@ -286,23 +286,54 @@ RSA has Non-repudiation and Public Verification properties.
 ### Q. What is CA(Certification Authority)?
 A Certification Authority (CA) is an entity that issues digital certificates. The digital certificate certifies the ownership of a public key.
 
-### Q. What does a Certificate Request look like?
+### Q. What are included in a Certificate?
+1) Date of issue
+2) Validity date
+3) Signature Algorithm
+4) Issuer
+5) Subject
+6) Subject public key info
+7) CA’s signature
 
+### Q. Describe Certificate Verification process?
+1) obtain one's certificate, either by receiving it from holder or retrieving it from some directory.
+2) Check whether it has expired or not. Lastly, we verify the signature using CA's public key.
+3) Verify the entire certification chain.
+4) Check whether the certificate is in the CRL.
 
-### Q. What does a Certificate look like (mandatory components)?
-### Q. What is Certificate Verification?
 ### Q. What is Certificate Revocation List (CRL)?
+A CRL is a list of digital certificates that have been revoked by the issuing Certificate Authority (CA) before their scheduled expiration date and should no longer be trusted.
+
 ### Q. What is PKI?
+PKI stands for Public Key Infrastructure. It is a set of policies, procedures, and products; used to implement public key cryptosystem in a large setting. 
+
 ### Q. What are the approaches for trust establishment?
+A hierarchical approach or A peer to peer approach.
+
 ### Q. What is the Hierarchy approach?
+In hierarchy appraoch, high-level CA sign low-level CA’s public key. Root CA issues its own certificate and is JUST trusted by all users. It’s own certificate is signed by its own private key.
+
+It is harder for Mallory to impersonate a high-level CA since a high level CA is widely exposed to public
+
 ### Q. What is cross-sign?
+Two root CA sign each other’s certificate.
+
 ### Q. What are the common email threats?
+1) Message eavesdropping
+2) Content modification
+3) Origin modification
+4) Content/origin forgery by outsider/recipient
 
 ## 📖 User Authentication <div id="user"></div>
 
-### Q. What are the three forms of shared secrets?
 ### Q. What are three attack scenarios?
+1) Attack at client side. Eg. Key logger and malware
+2) Attack in communication channel. Eg. Eavesdropping
+3) Attack at server side. Eg. Access to password file
+
 ### Q. What is Exhaustive Search?
+
+
 ### Q. How to counter online attacks?
 ### Q. What is Off-line Exhaustive Search?
 ### Q. What is Dictionary Attack?
