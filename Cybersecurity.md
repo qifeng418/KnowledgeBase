@@ -54,7 +54,6 @@ Cryptanalyst – anyone who attempts to break encryption algorithms
 Cryptology – research of encryption and decryption, including both cryptography and cryptanalysis
 
 
-sd
 ## 📖 Networking
 ### Q: What are IP address, Hostname and Domain name?
 ### Q: What is Router?
