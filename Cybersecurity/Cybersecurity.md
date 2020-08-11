@@ -39,6 +39,20 @@ Only the key should be kept secret, while the algorithm itself should be publicl
 ### Q: What are Security Tradeoffs?
 Cost and Mateinance, Efficiency and User Experience, Risk and Compliance.
 
+## 📖 Encryption Basics
+
+### Q: What is Cryptography, Encryption, Decryption, Cryptosystem, Cryptographer, Cryptanalyst, Cryptology?
+Cryptography – hidden writing
+The meaning of ciphertext is hidden from Mallory
+Encryption – encode or encipher
+Alice changes the plaintext to ciphertext
+Decryption – decode or decipher
+Bob recovers the plaintext from the ciphertext
+Cryptosystem – a system for encryption and decryption 
+Cryptographer – anyone who invents encryption algorithms
+Cryptanalyst – anyone who attempts to break encryption algorithms
+Cryptology – research of encryption and decryption, including both cryptography and cryptanalysis
+
 
 ## 📖 Networking
 ### Q: What are IP address, Hostname and Domain name?
