@@ -146,6 +146,22 @@ Servlet chaining is a concept where the request is processed in a chain of servl
 
 ## 📖 Response <div id="response"></div>
 
+### Q. What is ServletRequest Hierarchy?
+<img src="https://cdn.journaldev.com/wp-content/uploads/2013/08/Servlet-Hierarchy.png" height="280" width="500" />
+
+**ServletRequest, HttpServletRequest, ServletResponse, HttpServletResponse** are all interfaces, in Tomcat container, there is a class **RequestFacade** that implements HttpServletRequest.
+
+### Q. What are the info included in a Request?
+[HTTP (HyperText Transfer Protocol)
+Basics]("https://www.ntu.edu.sg/home/ehchua/programming/webprogramming/HTTP_Basics.html")
+1) Request Line
+2) Request Headers
+3) A blcnk line
+4) Request Body
+<img src="https://www.ntu.edu.sg/home/ehchua/programming/webprogramming/images/HTTP_RequestMessageExample.png" height="250" width="600" />
+
+
+
 
 ### Q: What is ServletConfig?
 **ServletConfig** is an object containing some initial parameters or configuration information created by Servlet Container and passed to the servlet during initialization. ServletConfig is **for a particular servlet**, that means one should store servlet specific information in web.xml and retrieve them using this object.
