@@ -1,4 +1,14 @@
-## 📖 Web Application
+[Web Application](#web)
+
+[Servlet and Container](#servlet)
+
+[Request](#request)
+
+[Response](#response)
+
+[Cookie](#cookie)
+
+## 📖 Web Application <div id="web"></div>
 
 ### Q: Web Server vs. Application Server?
 A web server‘s fundamental job is to accept and fulfill requests from clients for static content from a website (HTML pages, files, images, video, and so on). The client is almost always a **browser** or **mobile application** and the request takes the form of a Hypertext Transfer Protocol (HTTP) message, as does the web server’s response.
@@ -19,7 +29,10 @@ It's both a web server (supports HTTP protocol) and a web container (supports JS
 
 However, it's not really meant to function as a high performance web server, nor does it include some features typical of a web server. Tomcat is meant to be used in conjunction with the Apache web server, where Apache manages static pages, caching, redirection, etc. and Tomcat handles the container (web application) functions. You'll often hear the phrase "Apache Tomcat" together, which is both a proper attribution of the Tomcat project (as part of the Apache Foundation), but also appropriate as a label, as they're usually used together as a package.
 
-## 📖 Servlet
+### Q: Static webpage vs Dynamic webpage?
+The webpages which are same for all the users are static webpages and the webpages that are dynamically generated based on the user’s request (that may be different for each user depending on the request) are known as dynamic webpages. Servlet is mainly used for dynamic webpages.
+
+## 📖 Servlet <div id="servlet"></div>
 
 ### Q: What is servlet?
 Java Servlets are server-side Java program modules that process and answer client requests and implement the servlet interface. It helps in enhancing Web server functionality with minimal overhead, maintenance and support.
@@ -39,39 +52,38 @@ There are many problems in CGI technology:
 ### Q: Advantages of Servlet?
 <img src="https://static.javatpoint.com/images/servlet.JPG" height="300" width="500" />
 
-There are many advantages of Servlet over CGI. The web container creates threads for handling the multiple requests to the Servlet. Threads have many benefits over the Processes such as they share a common memory area, lightweight, cost of communication between the threads are low. The advantages of Servlet are as follows:
+There are many advantages of Servlet over CGI. The web container creates threads for handling the multiple requests to the Servlet. Threads have many benefits over the Processes. For example, they share a common memory area, lightweight, cost of communication between the threads are low. The advantages of Servlet are as follows:
 
-1) Better performance: because it creates a thread for each request, not process.
-2) Portability: because it uses Java language.
-3) Robust: JVM manages Servlets, so we don't need to worry about the memory leak, garbage collection, etc.
-4) Secure: because it uses java language.
-
-### Q: Static webpage vs Dynamic webpage?
-The webpages which are same for all the users are static webpages and the webpages that are dynamically generated based on the user’s request (that may be different for each user depending on the request) are known as dynamic webpages. Servlet is mainly used for dynamic webpages.
+1) **Better performance**: because it creates a thread for each request, not process.
+2) **Portability**: because it uses Java language.
+3) **Robust**: JVM manages Servlets, so we don't need to worry about the memory leak, garbage collection, etc.
+4) **Secure**: because it uses java language.
 
 ### Q: What is a Servlet Container?
 It provides the **runtime environment** for JavaEE applications. The client/user can request only a static WebPages from the server. If the user wants to read the web pages as per input then the servlet container is used in java.
 The servlet container is the part of web server which can be run in a separate process. We can classify the servlet container states in three types:
 
-1) Standalone: It is typical Java-based servers in which the servlet container and the web servers are the integral part of a single program. For example:- Tomcat running by itself
-2) In-process: It is separated from the web server, because a different program runs within the address space of the main server as a plug-in. For example:- Tomcat running inside the JBoss.
-3) Out-of-process: The web server and servlet container are different programs which are run in a different process. For performing the communications between them, web server uses the plug-in provided by the servlet container.
+1) **Standalone**: It is typical Java-based servers in which the servlet container and the web servers are the integral part of a single program. For example:- Tomcat running by itself
+2) **In-process**: It is separated from the web server, because a different program runs within the address space of the main server as a plug-in. For example:- Tomcat running inside the JBoss.
+3) **Out-of-process**: The web server and servlet container are different programs which are run in a different process. For performing the communications between them, web server uses the plug-in provided by the servlet container.
 
 ### Q: What are common tasks performed by Servlet Container?
-Servlet containers are also known as web container, for example, Tomcat. Some of the important tasks of servlet container are:
 
-Communication Support: Servlet Container provides easy way of communication between web client (Browsers) and the servlets and JSPs. Because of the container, we don’t need to build a server socket to listen for any request from the web client, parse the request and generate a response. All these important and complex tasks are done by container and all we need to focus is on business logic for the applications.
-Lifecycle and Resource Management: Servlet Container takes care of managing the life cycle of servlet. From the loading of servlets into memory, initializing servlets, invoking servlet methods and to destroy them. The container also provides utility like JNDI for resource pooling and management.
-Multithreading Support: Container creates a new thread for every request to the servlet and provides them request and response objects to the processing. So servlets are not initialized for each request and save time and memory.
-JSP Support: JSPs doesn’t look like normal java classes but every JSP in the application is compiled by container and converted to Servlet and then container manages them like other servlets.
+**Communication Support**: Servlet Container provides easy way of communication between web client (Browsers) and the servlets and JSPs. Because of the container, we don’t need to build a server socket to listen for any request from the web client, parse the request and generate a response. All these important and complex tasks are done by container and all we need to focus is on business logic for the applications.
+
+**Lifecycle and Resource Management**: Servlet Container takes care of managing the life cycle of servlet. From the loading of servlets into memory, initializing servlets, invoking servlet methods and to destroy them. The container also provides utility like JNDI for resource pooling and management.
+
+**Multithreading Support**: Container creates a new thread for every request to the servlet and provides them request and response objects to the processing. So servlets are not initialized for each request and save time and memory.
+
+**JSP Support**: JSPs doesn’t look like normal java classes but every JSP in the application is compiled by container and converted to Servlet and then container manages them like other servlets.
 Miscellaneous Task: Servlet container manages the resource pool, perform memory optimizations, execute garbage collector, provides security configurations, support for multiple applications, hot deployment and several other tasks behind the scene that makes a developer life easier.
 
 ### Q: Life cycle of a servlet?
-1) Loading of Servlet class: The servlet container finds the servlet class mentioned in web.xml file or annotation and loads it.
-2) Servlet instantiation: The object of servlet class gets created in this phase.
-3) Initialization : Servlet initialization by calling init() method.
-4) Servicing the request: In this phase the servlet service the client request by calling the service() method.
-5) Destroy: Last phase of servlet life cycle. The destroy() method free up the servlet instance so that it can be garbage collected.
+1) **Loading of Servlet class**: The servlet container finds the servlet class mentioned in web.xml file or annotation and loads it.
+2) **Servlet instantiation**: The object of servlet class gets created in this phase.
+3) **Initialization**: Servlet initialization by calling init() method.
+4) **Servicing the request**: In this phase the servlet service the client request by calling the service() method.
+5) **Destroy**: Last phase of servlet life cycle. The destroy() method free up the servlet instance so that it can be garbage collected.
 
 ### Q: When is Servlet loaded?
 1) When servlet container receives the **first request** from client(browser).
@@ -81,13 +93,18 @@ Miscellaneous Task: Servlet container manages the resource pool, perform memory 
 ### Q: What is Servlet interface and what’s the use of it?
 Servlet interface is an API for servlets. Every Servlet should either implement the servlet interface or extends the class which already implements the interface. **javax.servlet.GenericServlet** and **javax.servlet.http.HttpServlet** are the Servlet classes that implements Servlet interface, hence every servlet should either implement Servlet interface directly or by extending any of these classes.
 
+
+
+
+
+
 ### Q: What is ServletConfig?
-ServletConfig is an object containing some initial parameters or configuration information created by Servlet Container and passed to the servlet during initialization. ServletConfig is **for a particular servlet**, that means one should store servlet specific information in web.xml and retrieve them using this object.
+**ServletConfig** is an object containing some initial parameters or configuration information created by Servlet Container and passed to the servlet during initialization. ServletConfig is **for a particular servlet**, that means one should store servlet specific information in web.xml and retrieve them using this object.
 
 ### Q: What is ServletContext?
-ServletContext is the object created by Servlet Container to share initial parameters or configuration information to **the whole application**. All the servlets in the web application can access the ServletContext. It has the web-application information & resources which are common and accessible to all the servlets present in the web application.
+**ServletContext** is the object created by Servlet Container to share initial parameters or configuration information to **the whole application**. All the servlets in the web application can access the ServletContext. It has the web-application information & resources which are common and accessible to all the servlets present in the web application.
 
-### Q: ServletConfig vs ServletContext?
+### Q: ServletConfig vs. ServletContext?
 ServletConfig and ServletContext, both are objects created at the time of servlet initialization and used to provide some initial parameters or configuration information to the servlet. But, the difference lies in the fact that information shared by ServletConfig is for a specific servlet, while information shared by ServletContext is available for all servlets in the web application.
 
 | ServletConfig | ServletContext |
