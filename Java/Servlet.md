@@ -6,7 +6,9 @@
 
 [Response](#response)
 
-[Cookie](#cookie)
+[Session](#session)
+
+[Cookies](#cookies)
 
 ## 📖 Web Application <div id="web"></div>
 
@@ -90,12 +92,59 @@ Miscellaneous Task: Servlet container manages the resource pool, perform memory 
 2) Admin of the application manually loads the servlet.
 3) When the webserver(in which the servlet is deployed) gets started.
 
+### Q. What is the use of tag "load-on-startup"?
+Tag **"load-on-startup"** is used for specifying the Servlet files which needs to be loaded during server startup. The servlet files specified in this element are loaded as soon as the server starts, it does not wait for the first request for loading them up. This is how it is specified in web.xml file.
+```XML
+<servlet>
+   <servlet-name>MyServletNameHere</servlet-name>
+   <servlet-class>ServletClassHere-FullyQualified</servlet-class>
+   <load-on-startup>1</load-on-startup>
+</servlet>
+```
+If more than one files are specified then the files will be loaded in the same order in which they have been specified in it.
+
+### Q. What is Servlet lazy loading and how it can be avoided?
+The Servlet container does not initialize the Servlet on server startup by default. It only initializes a servlet when the it receives the request from the client. This is called **lazy loading** of Servlet.
+
+By specifying "load-on-startup" element for a Servlet we can avoid lazy loading. The servlet files specified in "load-on-startup" are loaded as soon as the web sever starts.
+
+### Q. When the Servlet is unloaded?
+1) Admin manually unloads the servlet.
+2) Web server shut down.
+
 ### Q: What is Servlet interface and what’s the use of it?
 Servlet interface is an API for servlets. Every Servlet should either implement the servlet interface or extends the class which already implements the interface. **javax.servlet.GenericServlet** and **javax.servlet.http.HttpServlet** are the Servlet classes that implements Servlet interface, hence every servlet should either implement Servlet interface directly or by extending any of these classes.
 
+### Q. Why do we need constructor in servlet even though we have a init() method?
+init() method is used for initializing the servlet however constructor is required in order to instantiate the Servlet class. Servlet container instantiate the Servlet class.
+
+### Q. Do we override service() method?
+No, we do not override the service() method. We generally override the doPost(), doGet() method based on the requirement.
+
+### Q: Difference between GenericServlet and HTTPServlet?
+1) GenericServlet is an abstract class which implements Servlet interface while HTTPServlet abstract class extends the GenericServlet class. In short: GenericServlet class is a parent class for HTTPServlet.
+2) GenericServlet does not support any protocol. HTTPSeervlet support HTTP and HTTPS protocol.
+3) GenericServlet cannot handle cookies and session while HTTPServlet can handle them.
+
+### Q: What are protocols supported by GenericServlet?
+GenericServlet abstract class is not specific to any protocol.
+
+### Q: What are protocols supported by HTTPServlet?
+HTTP and HTTPS protocols.
+
+### Q. What are the new features added to Servlet 3?
+1) Servlet Annotations
+2) Web Fragments
+3) Web components addition dynamically
+4) Asynchronous Processing
 
 
+## 📖 Request <div id="request"></div>
 
+### Q: Explain Servlet chaining?
+Servlet chaining is a concept where the request is processed in a chain of servlets. First Servlet processes the request partially and passes to the second one, then second servlet process it and passes to third one and so on. The last servlet returns the response to the client (browser).
+
+## 📖 Response <div id="response"></div>
 
 
 ### Q: What is ServletConfig?
@@ -115,10 +164,7 @@ ServletConfig and ServletContext, both are objects created at the time of servle
 | Each servlet has got its own ServletConfig object | ServletContext object is only one and used by different servlets of the application |
 | Use ServletConfig when only one servlet needs information shared by it | Use ServletContext when whole application needs information shared by it |
 
-### Q: Difference between GenericServlet and HTTPServlet?
-1) GenericServlet is an abstract class which implements Servlet interface while HTTPServlet abstract class extends the GenericServlet class. In short: GenericServlet class is a parent class for HTTPServlet.
-2) GenericServlet does not support any protocol. HTTPSeervlet support HTTP and HTTPS protocol.
-3) GenericServlet cannot handle cookies and session while HTTPServlet can handle them.
+
 
 Q 12. Difference between forward() and sendRedirect()?
 1) In forward() the same request is forwarded to the another resource. In sendRedirect() new request is send to the redirected resource.
@@ -136,57 +182,39 @@ Q 14. doGet() Vs doPost() methods?
 4) Method doGet() allow you to bookmark the resource. doPost() doesn’t allow bookmarks.
 5) doGet() is faster compared to the doPost() method.
 
-Q 15. What is the use of <load-on-startup>?
-<load-on-startup> is used for specifying the Servlet files which needs to be loaded during server startup. The servlet files specified in this element are loaded as soon as the server starts, it does not wait for the first request for loading them up. This is how it is specified in web.xml file.
 
-<servlet>
-   <servlet-name>MyServletNameHere</servlet-name>
-   <servlet-class>ServletClassHere-FullyQualified</servlet-class>
-   <load-on-startup>1</load-on-startup>
-</servlet>
-If more than one files are specified then the files will be loaded in the same order in which they have been specified in it.
+## 📖 Session <div id="session"></div>
 
-Q 20. What are the different types of session tracking mechanism supported by Servlets?
+### Q. What are the different types of session tracking mechanism supported by Servlets?
 1) URL rewriting
 2) Hidden Form Fields
 3) Cookies
 4) Secure Socket Layer(SSL) Sessions
 
-Q 21. How URL rewriting maintains session?
+### Q. How URL rewriting maintains session?
 In URL rewriting method, the session tracking data has been appended at the end of the URL to track the session.
 
-### Q: Explain Servlet chaining?
-Servlet chaining is a concept where the request is processed in a chain of servlets. First Servlet processes the request partially and passes to the second one, then second servlet process it and passes to third one and so on. The last servlet returns the response to the client (browser).
-
-Q 23. How to invalidate a session in servlet?
+### Q. How to invalidate a session in servlet?
 By calling session.invalidate() method.
 
-Q 24. What are the main functions of Servlet container?
-1) Servlet life cycle management
-2) Maintains the interaction between servlet and webserver.
-3) Providing multithreading support for processing more than one request simultaneously.
-4) Managing of deployment descriptor web.xml file.
-
-Q 25. What is <session-timeout> ?
+### Q. What is <session-timeout> ?
 The element <session-timeout> is used for specifying the timeout of a Session. This is how it is defined in the web.xml file.
-
+```XML
 <session-config>
        <session-timeout>35</session-timeout>
 </session-config>
+```
 It would set the session timeout to 25 minutes.
 
-Q 26. What is Servlet lazy loading and how it can be avoided?
-The Servlet container does not initialize the Servlet on server startup by default. It only initializes a servlet when the it receives the request from the client. This is called lazy loading of Servlet.
-By specifying <load-on-startup> element for a Servlet we can avoid lazy loading. The servlet files specified in <load-on-startup> are loaded as soon as the web sever starts.
 
-Q 27. Why do we need constructor in servlet even though we have a init() method?
-init() method is used for initializing the servlet however constructor is required in order to instantiate the Servlet class. Servlet container instantiate the Servlet class.
 
-Q 28. When the Servlet is unloaded?
-1) Admin manually unloads the servlet.
-2) Web server shut down.
 
-Q 29. How Servlet maintains session using cookies?
+
+## 📖 Cookies <div id="cookies"></div>
+
+### Q. What is Coolies in Servelt?
+
+### Q. How Servlet maintains session using cookies?
 Cookie is a small piece of information, which is sent by a servlet to the Web browser. Cookies gets stored in the browser and returned back to the server when needed. A cookie has a name, a single value, and few other attributes.
 
 Q 30. Why using cookies for session tracking is a bad practice?
@@ -203,6 +231,7 @@ Q 32. How to get the client’s IP address in Servlets?
 Using this:
 
 request.getRemoteAddr()
+
 Q 33. Why we use filters in Servlet?
 We use filters for:
 1) Security checks
@@ -211,17 +240,6 @@ We use filters for:
 4) Logging and auditing
 5) Response compression
 
-Q 34. What all protocols are supported by HTTPServlet?
-HTTP and HTTPS protocols.
 
-Q 35. What all protocols are supported by GenericServlet?
-GenericServlet abstract class is not specific to any protocol.
 
-Q 36. What are the new features added to Servlet 3?
-1) Servlet Annotations
-2) Web Fragments
-3) Web components addition dynamically
-4) Asynchronous Processing
 
-Q 37. Do we override service() method?
-No, we do not override the service() method. We generally override the doPost(), doGet() method based on the requirement.
