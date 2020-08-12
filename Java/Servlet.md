@@ -6,6 +6,8 @@
 
 [Response](#response)
 
+[ServletContext](#context)
+
 [Session](#session)
 
 [Cookies](#cookies)
@@ -144,23 +146,154 @@ HTTP and HTTPS protocols.
 ### Q: Explain Servlet chaining?
 Servlet chaining is a concept where the request is processed in a chain of servlets. First Servlet processes the request partially and passes to the second one, then second servlet process it and passes to third one and so on. The last servlet returns the response to the client (browser).
 
-## 📖 Response <div id="response"></div>
-
 ### Q. What is ServletRequest Hierarchy?
 <img src="https://cdn.journaldev.com/wp-content/uploads/2013/08/Servlet-Hierarchy.png" height="280" width="500" />
 
 **ServletRequest, HttpServletRequest, ServletResponse, HttpServletResponse** are all interfaces, in Tomcat container, there is a class **RequestFacade** that implements HttpServletRequest.
 
 ### Q. What are the info included in a Request?
-[HTTP (HyperText Transfer Protocol)
-Basics]("https://www.ntu.edu.sg/home/ehchua/programming/webprogramming/HTTP_Basics.html")
+[Reading: HTTP (HyperText Transfer Protocol)
+Basics](https://www.ntu.edu.sg/home/ehchua/programming/webprogramming/HTTP_Basics.html)
 1) Request Line
 2) Request Headers
 3) A blcnk line
 4) Request Body
 <img src="https://www.ntu.edu.sg/home/ehchua/programming/webprogramming/images/HTTP_RequestMessageExample.png" height="250" width="600" />
 
+### Q. Differences between URI and URL?
+URI: Uniform Resource Identifier. It is an identifier of a specific resource. Like a page, or book, or a document.
 
+URL: Uniform Resource Locator. It is a special type of identifier that also tells you how to access it, such as HTTPs, FTP, etc.—like https://www.google.com.
+
+Basically, being more specific is better, and a “URL” is a specific type of URI that provides an access method/location.
+
+<img src="https://danielmiessler.com/images/url-uri-miessler-2019-white-e1576768407702.png.webp" height="400" width="400" />
+
+### Q. What are the methods for getting Request Line?
+Take above request as example.
+
+```java
+1) String getMethod() {Return "GET"}
+2) String getContextPath() {Return "/doc"}
+3) String getServletPath() {Return "/test"}
+4) String getQueryStirng() {Return "name=Jason"}
+5) String getRequestURI() {Return "/doc/test"}
+6) StringBuffer getRequestURL() {Return ":http://localhost/doc/test"}
+7) String getProtocol {Return "HTTP/1,1"}
+8) String getRemoteAddr {Return ""}
+```
+
+### Q. What are the methods for getting Request Headers?
+
+```java 
+// get header according to header name
+1) String getHeader(Stirng name)
+// get all headers
+2) Enumeration<String> getHeaderNames()
+```
+
+### Q. What are the methods for getting Request Body?
+Only **POST** has Request Body.
+
+```java
+// get Stream object
+BufferedReader getReader() // get character input stream
+ServletInputStream getInputStream() // get byte input stream
+```
+
+### Q. What are the methods for getting request parameters?
+```java
+String getParameter(String name)
+Stirng[] getParameterValues(Stirng name) // multiple values for one name
+Enumeration<String> getParameterNames()
+Map<String, String[]> getParameterMap()
+```
+
+### Q. How to forward a request?
+
+```java
+RequestDispatcher getRequestDispatcher(String path).forward()
+```
+When we use forward() method, the url doesn't change. Also, it can only forward to resources within internal server. **The forward is only one request**.
+
+### Q. How to share data in Request?
+```java
+setAttribute(String name, Object obj)
+Object getAttribute(String name)
+removeAttribute(String name)
+```
+
+### Q. How to get ServletContext using Request?
+```java
+ServletContext servletContext = request.getServletContext();
+```
+
+## 📖 Response <div id="response"></div>
+
+### Q. What are the info included in a Response?
+1) Status Line
+2) Response Headers
+3) A blcnk line
+4) Response Body
+<img src="https://www.ntu.edu.sg/home/ehchua/programming/webprogramming/images/HTTP_ResponseMessageExample.png" height="250" width="600" />
+
+### Q. Explain HTTP status code?
+1) **1xx** Informational response
+2)	**2xx** Success
+3)	**3xx** Redirection
+4)	**4xx** Client errors
+5)	**5xx** Server errors
+
+### Q. How to set status code?
+```java
+setStatus(int sc)
+```
+
+### Q. How to set Header?
+```java
+setHeader(String name, String value)
+```
+### Q. How to set Body?
+```java
+// character output stream
+PrintWriter getWriter()
+// byte outpurt stream
+ServletOutputStream getOutputStream()
+```
+
+### Q. How to redirect in Response?
+```java
+response.setStatus(302);
+response.setHeader("location", "/project/response2");
+
+// another easy way
+response.sendRedirect("/project/response2");
+```
+
+### Q. Differences between forward() and sendRedirect()?
+<img src="https://i.stack.imgur.com/a3pCn.png" height="500" width="600" />
+
+**requestDispatcher - forward() method**
+
+1) When we use the **forward** method, the request is transferred to another resource within the same server for further processing.
+2) In the case of **forward**, the web container handles all processing internally and the client or browser is not involved.
+3) When **forward** is called on the **requestDispatcherobject**, we pass the request and response objects, so our old request object is present on the new resource which is going to process our request.
+4) Visually, we are not able to see the **forwarded** address, it is transparent.
+5) Using the **forward()** method is faster than sendRedirect.
+6) When we redirect using forward, and we want to use the same data in a new resource, we can use request.**setAttribute()** as we have a request object available.
+
+**SendRedirect**
+1) In case of **sendRedirect**, the request is transferred to another resource, to a different domain, or to a different server for further processing.
+2) When you use **sendRedirect**, the container transfers the request to the client or browser, so the URL given inside the sendRedirect method is visible as a new request to the client.
+3) In case of **sendRedirect** call, the old request and response objects are lost because it’s treated as new request by the browser.
+4) In the address bar, we are able to see the new **redirected** address. It’s not transparent.
+5) **sendRedirect** is slower because one extra round trip is required, because a completely new request is created and the old request object is lost. Two browser request are required.
+6) But in **sendRedirect**, if we want to use the same data for a new resource we have to store the data in session or pass along with the URL.
+
+## 📖 ServletContext <div id="context"></div>
+
+
+### Q. What is MINE type?
 
 
 ### Q: What is ServletConfig?
