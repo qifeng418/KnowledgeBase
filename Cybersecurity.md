@@ -332,39 +332,119 @@ Two root CA sign each other’s certificate.
 3) Attack at server side. Eg. Access to password file
 
 ### Q. What is Exhaustive Search?
-
+Adversary tries all possible passwords on-line or off-line.
 
 ### Q. How to counter online attacks?
+1) Choosing long password 
+2) Limiting the number of tries 
+3) Slowing down log-in process
+
 ### Q. What is Off-line Exhaustive Search?
+Adversary (with the help of some automatic tool) obtains the encrypted password file and tries every possible password and encrypt it, after that the adversary compares the ciphertext of each tried password to all passwords in the password file.
+
 ### Q. What is Dictionary Attack?
+Adversary (with the help of some automatic tool) creates a dictionary of commonly used passwords (probably including all the words in a common dictionary) and pre-computes password file of the dictionary. After that the adversay looks for a match between the pre-computed password file and the real password file. Dictionary attacks are fast, but only work for weak passwords.
+
 ### Q. The Art of choosing good password.
-### Q. Compare Challenge-Response and Time Stamp.
-### Q. What is Lamport Scheme and its limitations?
+1) DO NOT use your boyfriend/ girlfriend/ parents/ siblings/ pet’s **name** as your password.
+2) DO NOT use words found in the **dictionary** as your password.
+3) DO NOT use your or anybody mentioned in Point 1’s **birth date** as your password.
+4) DO try and use a **combination of alphabets, digits and special characters.  Both lower and upper case** should be used. Such a password is one of the most difficult to break passwords.
 
 ## 📖 Firewall and IDS <div id="ids"></div>
 
 ### Q. What is firewall?
+A firewall is a network security system that **monitors and controls** incoming and outgoing network traffic based on predetermined **security rules**. A firewall typically establishes a barrier between a trusted internal network and untrusted external network.
+
 ### Q. What are the close policy and open policy?
+Close policy: Default deny with white list.
+
+Open policy: Default permit with black list.
+
 ### Q. What are the three types of firewalls?
+IP layer: Packet filtering gateway (screening router)
+
+TCP layer: Circuit relay, stateful inspection
+
+Application layer: Application proxy gateway
+
 ### Q. Limitations of firewalls?
+Single Point of Failure; Performance bottleneck
+
 ### Q. What is IDS?
+An intrusion detection system is a device or software application that monitors for malicious activity or policy violations within a network. Any malicious activity or violation is typically reported or collected centrally using a security information and event management system.
+
 ### Q. What are the properties of an ideal IDS?
+1) 100% accuracy
+2) In real time manner
+3) Complete diagnosis
+4) Effective recommendations on how to react
+
 ### Q. FW vs. IDS
+Firewall enforces **policies** on controlling packets in the gateways to block unauthorized access, while IDS analyses **whole packets** to detect intrusions and report them within the network in real time.
+
 ### Q. How to calculate accuracy of IDS?
+**False positive (alarm) rate**: number of false-alert / total number of alerts
+
+**False negative (miss) rate**: number of missed-attacks / total number of non-alerts
+
 ### Q. How to reduce false positive and false negative?
+Reduce false positive: reduce the sensitivity of IDS
+
+Reduce false negative: increase the sensitivity of IDS
+
 ### Q. Misuse/Signature-based Detection vs. Anomaly-based
+**Misuse/signature-based**:
+1) Remembers “signatures” of “bad things”
+2) Not matching = “good”
+3) Good detection rate but cannot detect zero-day exploits
+
+**Anomaly-based**:
+1) Remembers characterization of “good things”
+2) Not matching = bad
+3) Can detect attacks that have not been observed before but has high false-alarm rate.
+
 ### Q. Why do most use the first one?
+1) The second one has too high false alarms.
+2) The second one depends on the contexts.
+3) Users often are not aware that they have zero-day attacks.
+
 ### Q. What is network-based intrusion detection (NIDS)?
-### Q. Problems with NIDS.
+A network-based intrusion detection system detects malicious traffic on a network. NIDS usually require promiscuous network access in order to analyze all traffic, including all unicast traffic. NIDS are passive devices that do not interfere with the traffic they monitor. Fig. 7.2 shows a typical NIDS architecture. The NIDS sniffs the internal interface of the firewall in read-only mode and sends alerts to a NIDS Management server via a different (ie, read/write) network interface.
+
+<img src="https://ars.els-cdn.com/content/image/3-s2.0-B9780128112489000073-f07-02-9780128112489.jpg?_" height="280" width="450" />
+
+Advantage of passive monitoring:
+1) Unobtrusive
+2) Difficult to evade if done at low level of network operation
+
 ### Q. What is HIDS?
+A host-based intrusion detection system (HIDS) monitors and analyzes system configuration and application activity for devices running on the enterprise network. The HIDS sensors can be installed on any device, regardless of whether it’s a desktop PC or a server.
+
+HIDS sensors essentially take a snapshot of existing system files and compare them with previous snapshots. They look for unexpected changes, such as overwriting, deletion and access to certain ports. Consequently, alerts are sent to administrators to investigate activities that seem iffy.
+
+### Q. NIDS vs. HIDS
+Each of these intrusion detection systems come with their own strengths. NIDS works in real-time, which means it tracks live data and flags issues as they happen. On the other hand, HIDS examines historical data to catch savvy hackers that use non-conventional methods that might be difficult to detect in real-time.
+
+The ideal scenario is to incorporate both HIDS and NIDS since they complement each other. NIDS offers faster response time while HIDS can identify malicious data packets that originate from inside the enterprise network.
+
 ### Q. What is a system call?
+A system call is the programmatic way in which a computer program requests a service from the **kernel** of the operating system.
 
 ## 📖 Software Security <div id="software"></div>
 
 ### Q. Describe program translating process.
+
+
 ### Q. What is translator?
+
+
 ### Q. Differences between assembler, compiler and interpreter.
+
+
 ### Q. Differences between machine language, assembly language and high-level language.
+
+
 ### Q. What is CISC?
 ### Q. What is call stack?
 ### Q. What is stack layout?
