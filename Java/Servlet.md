@@ -8,9 +8,11 @@
 
 [ServletContext](#context)
 
+[Cookies](#cookies)
+
 [Session](#session)
 
-[Cookies](#cookies)
+
 
 ## 📖 Web Application <div id="web"></div>
 
@@ -82,6 +84,20 @@ The servlet container is the part of web server which can be run in a separate p
 **JSP Support**: JSPs doesn’t look like normal java classes but every JSP in the application is compiled by container and converted to Servlet and then container manages them like other servlets.
 Miscellaneous Task: Servlet container manages the resource pool, perform memory optimizations, execute garbage collector, provides security configurations, support for multiple applications, hot deployment and several other tasks behind the scene that makes a developer life easier.
 
+### Q: What is Servlet interface and what’s the use of it?
+Servlet interface is an API for servlets. Every Servlet should either implement the servlet interface or extends the class which already implements the interface. **javax.servlet.GenericServlet** and **javax.servlet.http.HttpServlet** are the Servlet classes that implements Servlet interface, hence every servlet should either implement Servlet interface directly or by extending any of these classes.
+
+### Q: Difference between GenericServlet and HTTPServlet?
+1) GenericServlet is an abstract class which implements Servlet interface while HTTPServlet abstract class extends the GenericServlet class. In short: GenericServlet class is a parent class for HTTPServlet.
+2) GenericServlet does not support any protocol. HTTPSeervlet support HTTP and HTTPS protocol.
+3) GenericServlet cannot handle cookies and session while HTTPServlet can handle them.
+
+### Q: What are protocols supported by GenericServlet?
+GenericServlet abstract class is not specific to any protocol.
+
+### Q: What are protocols supported by HTTPServlet?
+HTTP and HTTPS protocols.
+
 ### Q: Life cycle of a servlet?
 1) **Loading of Servlet class**: The servlet container finds the servlet class mentioned in web.xml file or annotation and loads it.
 2) **Servlet instantiation**: The object of servlet class gets created in this phase.
@@ -114,31 +130,26 @@ By specifying "load-on-startup" element for a Servlet we can avoid lazy loading.
 1) Admin manually unloads the servlet.
 2) Web server shut down.
 
-### Q: What is Servlet interface and what’s the use of it?
-Servlet interface is an API for servlets. Every Servlet should either implement the servlet interface or extends the class which already implements the interface. **javax.servlet.GenericServlet** and **javax.servlet.http.HttpServlet** are the Servlet classes that implements Servlet interface, hence every servlet should either implement Servlet interface directly or by extending any of these classes.
-
 ### Q. Why do we need constructor in servlet even though we have a init() method?
 init() method is used for initializing the servlet however constructor is required in order to instantiate the Servlet class. Servlet container instantiate the Servlet class.
 
 ### Q. Do we override service() method?
 No, we do not override the service() method. We generally override the doPost(), doGet() method based on the requirement.
 
-### Q: Difference between GenericServlet and HTTPServlet?
-1) GenericServlet is an abstract class which implements Servlet interface while HTTPServlet abstract class extends the GenericServlet class. In short: GenericServlet class is a parent class for HTTPServlet.
-2) GenericServlet does not support any protocol. HTTPSeervlet support HTTP and HTTPS protocol.
-3) GenericServlet cannot handle cookies and session while HTTPServlet can handle them.
-
-### Q: What are protocols supported by GenericServlet?
-GenericServlet abstract class is not specific to any protocol.
-
-### Q: What are protocols supported by HTTPServlet?
-HTTP and HTTPS protocols.
+### Q. doGet() vs. doPost() methods?
+1) In **doGet()**, the parameters are visible in the address bar, they get appended to the URL. In **doPost()** parameters are not visible in the address bar.
+2) You can maximum transfer 1024 characters through **GET** request. **doPost()** doesn’t have any limitations.
+3) **doGet()** is not good for sensitive data as the parameters do not get encrypted. In **doPost()** the parameters are encrypted hence it is more secure compared to doGet().
+4) Method **doGet()** allow you to bookmark the resource. **doPost()** doesn’t allow bookmarks.
+5) **doGet()** is faster compared to the **doPost()** method.
 
 ### Q. What are the new features added to Servlet 3?
 1) Servlet Annotations
 2) Web Fragments
 3) Web components addition dynamically
 4) Asynchronous Processing
+
+
 
 
 ## 📖 Request <div id="request"></div>
@@ -273,6 +284,12 @@ response.sendRedirect("/project/response2");
 ### Q. Differences between forward() and sendRedirect()?
 <img src="https://i.stack.imgur.com/a3pCn.png" height="500" width="600" />
 
+**Brief answer**
+1) In **forward()** the same request is forwarded to the another resource. In **sendRedirect()** new request is send to the redirected resource.
+2) **forward()** is taken care by the Servlet container while **sendRedirect()** is handled by the browser.
+3) In **forward()** the URL remains same on web browser. In **sendRedirect()** the URL changes in the web browser address bar.
+4) **forward()** is faster compared to **sendRedirect()**.
+
 **requestDispatcher - forward() method**
 
 1) When we use the **forward** method, the request is transferred to another resource within the same server for further processing.
@@ -314,22 +331,20 @@ ServletConfig and ServletContext, both are objects created at the time of servle
 | Use ServletConfig when only one servlet needs information shared by it | Use ServletContext when whole application needs information shared by it |
 
 
+## 📖 Cookies <div id="cookies"></div>
 
-Q 12. Difference between forward() and sendRedirect()?
-1) In forward() the same request is forwarded to the another resource. In sendRedirect() new request is send to the redirected resource.
-2) forward() is taken care by the Servlet container while sendRedirect() is handled by the browser.
-3) In forward() the URL(uniform resource locator) remains same on web browser. In sendRedirect() the URL changes in the web browser address bar.
-4) forward() is faster compared to sendRedirect().
+### Q. What is Coolies in Servelt?
 
-Q 13. What is deployment descriptor?
-web.xml file of a web application is known as deployment descriptor. It is usually placed inside WEB-INF folder of application. It has the information like Servlet name, Servlet mapping etc. This file tells the Servlet container which Servlet class needs to be called for the given URL pattern.
+### Q. How Servlet maintains session using cookies?
+Cookie is a small piece of information, which is sent by a servlet to the Web browser. Cookies gets stored in the browser and returned back to the server when needed. A cookie has a name, a single value, and few other attributes.
 
-Q 14. doGet() Vs doPost() methods?
-1) In doGet(), the parameters are visible in the address bar, they get appended to the URL. In doPost() parameters are not visible in the address bar.
-2) You can maximum transfer 1024 characters through GET request. doPost() doesn’t have any limitations.
-3) doGet() is not good for sensitive data as the parameters do not get encrypted. In doPost() the parameters are encrypted hence it is more secure compared to doGet().
-4) Method doGet() allow you to bookmark the resource. doPost() doesn’t allow bookmarks.
-5) doGet() is faster compared to the doPost() method.
+Q 30. Why using cookies for session tracking is a bad practice?
+There are several disadvantages of using cookies for session tracking. Few of them are:
+1) Since cookies are stored on client-side (in the client’s browser), It will not be available if client browser clears or disables the cookies.
+2) Implementing cookies for session tracking is much more difficult compared to other session management mechanism.
+3) Cookies only work for HTTP protocol.
+
+
 
 
 ## 📖 Session <div id="session"></div>
@@ -358,20 +373,6 @@ It would set the session timeout to 25 minutes.
 
 
 
-
-## 📖 Cookies <div id="cookies"></div>
-
-### Q. What is Coolies in Servelt?
-
-### Q. How Servlet maintains session using cookies?
-Cookie is a small piece of information, which is sent by a servlet to the Web browser. Cookies gets stored in the browser and returned back to the server when needed. A cookie has a name, a single value, and few other attributes.
-
-Q 30. Why using cookies for session tracking is a bad practice?
-There are several disadvantages of using cookies for session tracking. Few of them are:
-1) Since cookies are stored on client-side (in the client’s browser), It will not be available if client browser clears or disables the cookies.
-2) Implementing cookies for session tracking is much more difficult compared to other session management mechanism.
-3) Cookies only work for HTTP protocol.
-
 Q 31. How do I get the server info in Servlets?
 Use this:
 
@@ -389,6 +390,5 @@ We use filters for:
 4) Logging and auditing
 5) Response compression
 
-
-
-
+Q 13. What is deployment descriptor?
+web.xml file of a web application is known as deployment descriptor. It is usually placed inside WEB-INF folder of application. It has the information like Servlet name, Servlet mapping etc. This file tells the Servlet container which Servlet class needs to be called for the given URL pattern.
