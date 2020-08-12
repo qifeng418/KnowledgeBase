@@ -454,14 +454,31 @@ A system call is the programmatic way in which a computer program requests a ser
 ## 📖 Network Security <div id="networking"></div>
 
 ### Q. What are IP Address and MAC Address?
+
+
 ### Q. What is ARP?
+ARP stands for Address Resolution Protocol. It is a communication protocol used for discovering the link layer address, such as a MAC address, associated with a given internet layer address, typically an IPv4 address.
+
 ### Q. What does ARP table look like?
+
 ### Q. How ARP works?
+
 ### Q. What is ARP poisoning?
+
 ### Q. What is AS Numbers?
+
+
 ### Q. What is BGP?
+BGP is short for Border Gateway Protocol and it is the routing protocol used to route traffic across the internet.
+
 ### Q. What is DoS?
+DoS stands for Denial of Service. It is a cyber-attack in which it overwhelms the victim to the point of unresponsiveness to legitimate users.
+
+### Q. What is DDoS?
+DDoS stands for distributed denial-of-service. It is a kind of DoS attack. The incoming traffic flooding the victim originates from many different sources. This effectively makes it impossible to stop the attack simply by blocking a single source.
+
 ### Q. What is SYN flooding and how to prevent it?
+A SYN(Synchronize) flood is a form of **denial-of-service attack** in which an attacker sends a succession of SYN requests to a target's system in an attempt to consume enough server resources to make the system unresponsive to legitimate traffic.
 
 
 ## 📖 Networking <div id="networking"></div>
