@@ -8,10 +8,13 @@
 
 [ServletContext](#context)
 
+[Session Tracking](#track)
+
 [Cookies](#cookies)
 
 [Session](#session)
 
+[Filter](#filter)
 
 
 ## 📖 Web Application <div id="web"></div>
@@ -104,6 +107,16 @@ HTTP and HTTPS protocols.
 3) **Initialization**: Servlet initialization by calling init() method.
 4) **Servicing the request**: In this phase the servlet service the client request by calling the service() method.
 5) **Destroy**: Last phase of servlet life cycle. The destroy() method free up the servlet instance so that it can be garbage collected.
+
+### Q. How do I get the server info in Servlets?
+```java
+getServletContext().getServerInfo()
+```
+
+### Q. How to get the client’s IP address in Servlets?
+```java
+request.getRemoteAddr()
+```
 
 ### Q: When is Servlet loaded?
 1) When servlet container receives the **first request** from client(browser).
@@ -331,35 +344,95 @@ ServletConfig and ServletContext, both are objects created at the time of servle
 | Use ServletConfig when only one servlet needs information shared by it | Use ServletContext when whole application needs information shared by it |
 
 
+## 📖 Session Tracking <div id="track"></div>
+
+### Q. What is Stateless?
+In computing, a **stateless protocol** is a communications protocol in which no session information is retained by the receiver, usually a server. Relevant session data is sent to the receiver by the client in such a way that every packet of information transferred can be understood in isolation, without context information from previous packets in the session. This property of stateless protocols makes them ideal in **high volume applications**, increasing performance by removing server load caused by retention of session information.
+
+### Q. What is Session Tracking?
+**Session tracking** is a mechanism that servlets use to maintain state about a series of requests from the same user (that is, requests originating from the same browser) across some period of time.
+
+### Q. What are techniques used in Session tracking?
+
+1) **Hidden Form Field**:
+```HTML
+<input type = "hidden" name = "sessionid" value = "12345">
+```
+This entry means that, when the form is submitted, the specified name and value are automatically included in the GET or POST data.
+
+2) **URL Rewriting**: In URL rewriting method, the session tracking data has been appended at the end of the URL to track the session.
+3) **Cookies**
+4) **HttpSession**
+
+
 ## 📖 Cookies <div id="cookies"></div>
 
 ### Q. What is Coolies in Servelt?
 
-### Q. How Servlet maintains session using cookies?
-Cookie is a small piece of information, which is sent by a servlet to the Web browser. Cookies gets stored in the browser and returned back to the server when needed. A cookie has a name, a single value, and few other attributes.
+Cookie is a small piece of information, which is sent by a servlet to the Web browser. Cookies gets stored in the browser and returned back to the server when needed. A cookie has **a name, a single value, and optional attributes** such as a comment, path and domain qualifiers, a maximum age, and a version number.
 
-Q 30. Why using cookies for session tracking is a bad practice?
+### Q. How to create and use Cookies in Servlet?
+```java
+// create Cookie object and add data
+new Coolie(Stirng name, String value)
+// send Cookie
+response.addCoolie(Cookie cookie)
+// get data from cookie
+Cookie[] request.getCookie()
+```
+
+### Q. Can we send multiple Coolies?
+Yes. We can add multiple Coolies to response.
+
+### Q. How long can a Cookie be preserved?
+By default, Cookie data will be removed once the browser is closed. While we also can use **setMaxAge(int seconds)** to persiste Cookie data in hardware.
+
+### Q. Do different projects within the same server share Cookies?
+By default, no. Because by default the path points to the current project directory. While by using **setPath(String path)** we can change the path to **"/"** which allows different projects to access to same Cookies.
+
+### Q. Do different servers share Cookies?
+If we use **setDomin(String path)** to set the domin name, then projects under the same domin name share Cookies.
+
+### Q. Why using cookies for session tracking is a bad practice?
 There are several disadvantages of using cookies for session tracking. Few of them are:
-1) Since cookies are stored on client-side (in the client’s browser), It will not be available if client browser clears or disables the cookies.
+1) Since cookies are stored on client-side (in the client’s browser), tt will not be available if client browser clears or disables the cookies.
 2) Implementing cookies for session tracking is much more difficult compared to other session management mechanism.
 3) Cookies only work for HTTP protocol.
 
 
-
-
 ## 📖 Session <div id="session"></div>
 
-### Q. What are the different types of session tracking mechanism supported by Servlets?
-1) URL rewriting
-2) Hidden Form Fields
-3) Cookies
-4) Secure Socket Layer(SSL) Sessions
+### Q. What is HttpSession?
+<img src="https://lh3.googleusercontent.com/proxy/CGK4X2fDQGbTFW3I0fMsTt9ftPaKR_BdhypgYqPVCeRqEY7sWu4lMK4ZlectLATXqlCbg0RwDA_htVuQZmuARiJuLzX-4Glnhg" height="300" width="600" />
 
-### Q. How URL rewriting maintains session?
-In URL rewriting method, the session tracking data has been appended at the end of the URL to track the session.
+**HttpSession** object is used to store entire session with a specific client. We can store, retrieve and remove attribute from HttpSession object. Any servlet can have access to HttpSession object throughout the **getSession()** method of the **HttpServletRequest** object.
 
-### Q. How to invalidate a session in servlet?
-By calling session.invalidate() method.
+```java
+// get Session object
+HttpSession session = request.getSession();
+// get, set, remove data using Session
+Object getAttribute(String name)
+void setAttribute(String name, Object value)
+void removeAttribute(String name)
+```
+
+### Q. How Session works? (Why session depends on Cookie?)
+Because servers work in stateless, they can't tell if this is a returning client or a completely new one.
+
+To enable sessions, server sends a value to the client with a unique session id which requests the client to send back to the server next time when the client requests something form the server. By doing this, the server can use the id to load session state for that specific client.
+
+The value(session id) is normally sent in a cookie. Browsers attach cookies to each request and the server knows who's calling.
+
+<img src="https://i1.wp.com/4.bp.blogspot.com/-FnbFMxnKkV4/WV565AN7ifI/AAAAAAAAQZg/5_p-m1oxBqUx2CCqyqS3Y9JAUwmGO34nQCLcBGAs/s1600/1.png?w=580&ssl=1" height="500" width="600" />
+
+### Q. Scenario 1: The client browser is closed while server is still on, are two sessions the same?
+By default no, because the session has ended. While we can use **cookie.setMaxAge()** to persist the session.
+
+### Q. Scenario 2: The client browser is still on while server is closed, are two sessions the same?
+By default no. While if we want to make sure the the data are not lost, on the server side, the server can persist data into hard drive and load them again when it restarts. (Tomcat does this automatically)
+
+### Q. How long can a Session be preserved?
+By default 30 mins.
 
 ### Q. What is <session-timeout> ?
 The element <session-timeout> is used for specifying the timeout of a Session. This is how it is defined in the web.xml file.
@@ -368,19 +441,20 @@ The element <session-timeout> is used for specifying the timeout of a Session. T
        <session-timeout>35</session-timeout>
 </session-config>
 ```
-It would set the session timeout to 25 minutes.
+It would set the session timeout to 35 minutes.
+
+### Q. How to invalidate a session in servlet?
+By calling session.invalidate() method.
+
+### Q. Cookie vs. Session?
+1) Cookies are **client-side** files that contain user information, whereas Sessions are **server-side** files that contain user information.
+2) Cookie is not **dependent** on session, but Session is dependent on Cookie.
+3) Cookie **expires** depending on the lifetime you set for it, while a Session ends when a user closes his/her browser.
+4) The maximum cookie **size** is 4KB whereas in session, you can store as much data as you like.
+5) Cookie does not have a function named **unsetcookie()** while in Session you can use **Session_destroy()**; which is used to destroy all registered data or to unset some
 
 
-
-
-Q 31. How do I get the server info in Servlets?
-Use this:
-
-getServletContext().getServerInfo()
-Q 32. How to get the client’s IP address in Servlets?
-Using this:
-
-request.getRemoteAddr()
+## 📖 Filter <div id="filter"></div>
 
 Q 33. Why we use filters in Servlet?
 We use filters for:
