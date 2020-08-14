@@ -260,6 +260,9 @@ If these beans are defined in the XML instead of using <mvc:annotation-driven>, 
 </bean></bean></beans>
 ```
 
+### Q. What is the Purpose of @EnableWebMVC?
+The **@EnableWebMvc** annotation's purpose is to enable Spring MVC via Java configuration. It's equivalent to <mvc: annotation-driven /> in an XML configuration. This annotation imports Spring MVC Configuration from WebMvcConfigurationSupport. It enables support for @Controller-annotated classes that use @RequestMapping to map incoming requests to a handler method.
+
 ### Q. Annotation @Controller explanation?
 The **@Controller** is a Spring MVC annotation to define a Controller, but in reality, it's just a stereotype annotation. You can even create a controller without @Controller by annotating the Spring MVC Controller classes using the **@Component** annotation. The real job of request mapping to handler method is done using the **@RequestMapping** annotation.
 
@@ -312,11 +315,20 @@ The method level variants are:
 ```
 
 ### Q. Annotation @RequestParam explanation?
-**@RequestParam**
+**@RequestParam** is a Spring MVC annotation that is used to extract a request parameter or query parameters from the URL in the Controller's handler method.
+
+```Java
+public String personDetail(@RequestParam("id") long id){
+  ....
+  return "personDetails";
+}
+```
+The @RequestParam annotation also supports data type conversion, e.g. you can see here a String is converted to log automatically, but it can also result in an exception if query parameter is not present or in case of type mismatch. You can also make the parameter optional by using requried=false, e.g. ***@RequestParam (value="id", required=false)***
+
+### Q. Annotation @RequestBody and @ResponseBody explanation?
+**@RequestBody** and **@ResponseBody** annotations are used to bind the HTTP request/response body with a domain object in method parameter or return type. Behind the scenes, these annotation uses **HTTP Message converters** to convert the body of HTTP request/response to domain objects.
 
 
-
-**@RequestBody**
 
 **@PathVariable**
 
@@ -337,6 +349,40 @@ Spring offers the **@Validator** annotation and the **BindingResult class**. The
 
 Besides using the existing implementations, we can make our own. To do so, we create an annotation that conforms to the JSR-303 specifications first. Then, we implement the Validator class. Another way would be to implement Spring's Validator interface and set it as the validator via **@InitBinder** annotation in Controller class.
 
-### Q. 
+### Q. What is Model?
+The model can supply attributes used for rendering views. To provide a view with usable data, we simply add this data to its Model object. Additionally, maps with attributes can be merged with Model instances.
 
-### Q. 
+```Java
+@GetMapping("/showViewPage")
+public String passParametersWithModel(Model model) {
+    Map<String, String> map = new HashMap<>();
+    map.put("spring", "mvc");
+    model.addAttribute("message", "Baeldung");
+    model.mergeAttributes(map);
+    return "viewPage";
+}
+```
+
+### Q. What is ModelMap?
+Just like the Model interface above, ModelMap is also used to pass values to render a view. The advantage of ModelMap is it gives us the ability to pass a collection of values and treat these values as if they were within a Map.
+
+```Java
+@GetMapping("/printViewPage")
+public String passParametersWithModelMap(ModelMap map) {
+    map.addAttribute("welcomeMessage", "welcome");
+    map.addAttribute("message", "Baeldung");
+    return "viewPage";
+}
+```
+
+### Q. What is ModelAndView?
+This interface allows us to pass all the information required by Spring MVC in one return.
+
+```Java
+@GetMapping("/goToViewPage")
+public ModelAndView passParametersWithModelAndView() {
+    ModelAndView modelAndView = new ModelAndView("viewPage");
+    modelAndView.addObject("message", "Baeldung");
+    return modelAndView;
+}
+```
