@@ -145,6 +145,21 @@ The Spring Web MVC framework provides **Model-View-Controller** architecture and
 2) The **View** is responsible for rendering the model data and in general it generates HTML output that the client's browser can interpret.
 3) The **Controller** is responsible for processing user requests and building an appropriate model and passes it to the view for rendering.
 
+### Q. Advantages of Spring MVC?
+**Separate roles** - The Spring MVC separates each role, where the model object, controller, command object, view resolver, DispatcherServlet, validator, etc. can be fulfilled by a specialized object.
+
+**Light-weight** - It uses light-weight servlet container to develop and deploy your application.
+
+**Powerful Configuration** - It provides a robust configuration for both framework and application classes that includes easy referencing across contexts, such as from web controllers to business objects and validators.
+
+**Rapid development** - The Spring MVC facilitates fast and parallel development.
+
+**Reusable business code** - Instead of creating new objects, it allows us to use the existing business objects.
+
+**Easy to test** - In Spring, generally we create JavaBeans classes that enable you to inject test data using the setter methods.
+
+**Flexible Mapping** - It provides the specific annotations that easily redirect the page.
+
 ### Q. What is DispatcherServlet?
 **DispatcherServlet** acts as **front controller** for Spring based web applications. It provides a mechanism for request processing where actual work is performed by configurable, delegate components. It is inherited from **javax.servlet.http.HttpServlet**, it is typically configured in the web.xml file.
 
@@ -179,10 +194,16 @@ In the preceding example, all requests ending with .form will be handled by the 
 **HandlerMapping** is an interface that defines a mapping **between requests and handler objects**. While Spring MVC framework provides some ready-made implementations, the interface can be implemented by developers to provide customized mapping strategy.
 
 ### Q. What is HandlerAdapter?
+The **HandlerAdapter** is basically an interface which facilitates the handling of HTTP requests in a very flexible manner in Spring MVC.
 
+It's used in conjunction with the **HandlerMapping**, which maps a method to a specific URL.
+
+The **DispatcherServlet** then uses a HandlerAdapter to invoke this method. The servlet doesn't invoke the method directly – it basically serves as a bridge between itself and the handler objects, leading to a loosely coupling design.
 
 ### Q. What is ViewResolver?
+The ViewResolver maps view names to actual views.
 
+And the Spring framework comes with quite a few view resolvers e.g. **InternalResourceViewResolver**, **XmlViewResolver**, **ResourceBundleViewResolver** and a few others.
 
 ### Q. What does <mvc:annotation-driven /> do?
 **<mvc:annotation-driven />** tag defaults the basic components required for delegating the requests to your Controllers.
@@ -239,11 +260,82 @@ If these beans are defined in the XML instead of using <mvc:annotation-driven>, 
 </bean></bean></beans>
 ```
 
-### Q. 
+### Q. Annotation @Controller explanation?
+The **@Controller** is a Spring MVC annotation to define a Controller, but in reality, it's just a stereotype annotation. You can even create a controller without @Controller by annotating the Spring MVC Controller classes using the **@Component** annotation. The real job of request mapping to handler method is done using the **@RequestMapping** annotation.
+
+### Q. @Autowired vs. @Inject vs. @Resource?
+**@Autowired** – Defined in the ***package org.springframework.bean.factory*** and part of Spring framework.
+
+**@Inject** – Defined in the ***javax.inject*** package. In order to access the @Inject annotation, the javax.inject library has to be declared as a Maven dependency.
+
+**@Resource** – Defined in the ***javax.annotation*** package and this annotation is part of the JSR-250 annotation collection and is packaged with Java EE.
+
+@Autowired and @Inject annotation behave identically. These two annotations use ***AutowiredAnnotationBeanPostProcessor*** to inject dependencies. (**Order**: Matches by Type --> Restricts by Qualifiers -->
+Matches by Name)
+
+@Resource uses ***CommonAnnotationBeanPostProcessor*** to inject dependencies. (**Order**: Matches by Name --> Matches by Type --> Restricts by Qualifiers)
+
+### Q. Annotation @RequestMapping explanation?
+**@RequestMapping** maps HTTP requests to handler methods of MVC and REST controllers.
+
+The @RequestMapping annotation can be applied to **class-level** and/or **method-level** in a controller. The class-level annotation maps a specific request path or pattern onto a controller. We can then apply additional method-level annotations to make mappings more specific to handler methods.
+
+```Java
+@RestController
+@RequestMapping("/home")
+public class IndexController {
+    @RequestMapping(value = "/fetch/{id}", method = RequestMethod.GET)
+    String getDynamicUriValue(@PathVariable String id) {
+        System.out.println("ID is " + id);
+        return "Dynamic URI parameter fetched";
+    }
+    @RequestMapping(value = "/fetch/{id:[a-z]+}/{name}", method = RequestMethod.GET)
+    String getDynamicUriValueRegex(@PathVariable("name") String name) {
+        System.out.println("Name is " + name);
+        return "Dynamic URI parameter fetched using regex";
+    }
+}
+```
+
+### Q. What are the composed annotations of @RequestMapping?
+Spring 4.3 introduced method-level variants, also known as composed annotations of @RequestMapping. The composed annotations better express the semantics of the annotated methods. They act as wrapper to@RequestMapping and have become the standard ways of defining the endpoints.
+
+For example, **@GetMapping** is a composed annotation that acts as a shortcut for **@RequestMapping(method =RequestMethod.GET)**.
+
+The method level variants are:
+```Java
+@GetMapping
+@PostMapping
+@PutMapping
+@DeleteMapping
+@PatchMapping
+```
+
+### Q. Annotation @RequestParam explanation?
+**@RequestParam**
 
 
-### Q. 
 
+**@RequestBody**
+
+**@PathVariable**
+
+**@RequestHeader**
+
+**@CoolieValue**
+
+**@ModelAttribute**
+
+**@SessionAttribute**
+
+### Q. How to do Validation Using Spring MVC?
+Spring MVC supports **JSR-303** specifications by default. We need to add JSR-303 and its implementation dependencies to our Spring MVC application. Hibernate Validator, for example, is one of the JSR-303 implementations at our disposal.
+
+JSR-303 is a specification of the Java API for bean validation.Properties of a bean meet specific criteria, using annotations such as **@NotNull**, **@Min**, and **@Max**.
+
+Spring offers the **@Validator** annotation and the **BindingResult class**. The Validator implementation will raise errors in the controller request handler method when we have invalid data. Then we may use the BindingResult class to get those errors.
+
+Besides using the existing implementations, we can make our own. To do so, we create an annotation that conforms to the JSR-303 specifications first. Then, we implement the Validator class. Another way would be to implement Spring's Validator interface and set it as the validator via **@InitBinder** annotation in Controller class.
 
 ### Q. 
 
