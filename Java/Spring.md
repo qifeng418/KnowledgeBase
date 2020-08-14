@@ -145,11 +145,99 @@ The Spring Web MVC framework provides **Model-View-Controller** architecture and
 2) The **View** is responsible for rendering the model data and in general it generates HTML output that the client's browser can interpret.
 3) The **Controller** is responsible for processing user requests and building an appropriate model and passes it to the view for rendering.
 
-### Q. 
+### Q. What is DispatcherServlet?
+**DispatcherServlet** acts as **front controller** for Spring based web applications. It provides a mechanism for request processing where actual work is performed by configurable, delegate components. It is inherited from **javax.servlet.http.HttpServlet**, it is typically configured in the web.xml file.
+
+<img src="https://static.wixstatic.com/media/f03846_de0bb4b9e92342ceb9b5a8d8ed2bc407~mv2.png/v1/fill/w_630,h_379,al_c,q_85,usm_0.66_1.00_0.01/f03846_de0bb4b9e92342ceb9b5a8d8ed2bc407~mv2.webp" height="400" width="650" />
+
+<img src="https://terasolunaorg.github.io/guideline/1.0.1.RELEASE/en/_images/RequestLifecycle.png" height="500" width="700" />
+
+### Q. How to configure DispatcherServlet in Spring?
+The DispatcherServlet is like any other Servlet class and it has to be declared inside the deployment descriptor or web.xml file as shown below:
+
+```XML
+<web-app>
+
+    <servlet>
+        <servlet-name>example</servlet-name>
+        <servlet-class>
+            org.springframework.web.servlet.DispatcherServlet
+        </servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>example</servlet-name>
+        <url-pattern>*.form</url-pattern>
+    </servlet-mapping>
+
+</web-app>
+```
+In the preceding example, all requests ending with .form will be handled by the example DispatcherServlet. 
+
+### Q. What is HandlerMapping?
+**HandlerMapping** is an interface that defines a mapping **between requests and handler objects**. While Spring MVC framework provides some ready-made implementations, the interface can be implemented by developers to provide customized mapping strategy.
+
+### Q. What is HandlerAdapter?
 
 
-### Q. 
+### Q. What is ViewResolver?
 
+
+### Q. What does <mvc:annotation-driven /> do?
+**<mvc:annotation-driven />** tag defaults the basic components required for delegating the requests to your Controllers.
+
+If this tag is not added to the XML, then you will have to manually define the beans for components like **HandlerAdapter, HandlerMapping, Binding Initializer, Request Message converters, etc**. This tag helps registering the following components.
+
+**DefaultAnnotationHandlerMapping** - This is a HandlerMapping implementation which maps the HTTP requests to the handler methods defined using the ***@RequestMapping*** annotation.
+
+**AnnotationMethodHandlerAdapter** - It is responsible for scanning the controllers to identify methods (and parameters) annotated with @MVC annotations. It scans and caches handler methods annotated with ***@RequestMapping***. Also handles the ***@RequestParam***, @***ModelAttribute***, ***@SessionAttributes*** and ***@InitBinder*** annotations.
+
+**ConfigurableWebBindingInitializer** - The initializer for the Web Data Binder. Helps in declaratively configuring the Web Binder with validators, conversion services, property editors, etc.
+LocalValidatorFactoryBean - Implements the validator interface and enables JSR303 validation. This is injected into ConfigurableWebBindingInitializer.
+
+**FormattingConversionServiceFactoryBean** - A conversion factory that returns conversion services for basic objects like date and numbers. This factory is again injected into ConfigurableWebBindingInitializer.
+
+**Message Converters:**
+
+1) **ByteArrayHttpMessageConverter** - A HTTP request message converter that reads a HTTP message body and returns a byte stream. It can also read a byte stream and construct a response body. Used for receiving and sending documents like PDF, XLS, etc.
+2) **StringHttpMessageConverter** - A HTTP request message converter that reads a plain text request body and binds it to a String object. And vice-versa with response.
+3) **FormHttpMessageConverter** - A HTTP request message converter that reads a form encoded request body and binds it to a form Binding object.
+4) **SourceHttpMessageConverter** - A HTTP request converter that converts a XML message body to/from Binding Object.
+
+If these beans are defined in the XML instead of using <mvc:annotation-driven>, it would look something like this.
+
+```XML
+<beans xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans" xsi:schemalocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+ 
+ 
+ <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+  <property name="order" value="0">
+ </property></bean>
+ 
+ <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+  <property name="webBindingInitializer">
+   <bean class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+    <property name="validator" ref="validator">
+   </property></bean>
+  </property>
+  <property name="messageConverters">
+   <list>
+    <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter">
+    <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+    <bean class="org.springframework.http.converter.FormHttpMessageConverter">
+    <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter">
+   </bean></bean></bean></bean></list>
+  </property>
+ </bean>
+ 
+ <bean class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" id="validator">
+ <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean" id="conversion-service">
+ 
+</bean></bean></beans>
+```
 
 ### Q. 
 
