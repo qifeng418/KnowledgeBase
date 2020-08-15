@@ -464,5 +464,5 @@ We use filters for:
 4) Logging and auditing
 5) Response compression
 
-Q 13. What is deployment descriptor?
+QQ 13. What is deployment descriptor?
 web.xml file of a web application is known as deployment descriptor. It is usually placed inside WEB-INF folder of application. It has the information like Servlet name, Servlet mapping etc. This file tells the Servlet container which Servlet class needs to be called for the given URL pattern.
