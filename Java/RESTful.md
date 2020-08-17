@@ -33,7 +33,18 @@ Web Services that follow below principles are viewed as RESTful applications.
 
 4) **Stateful interactions through hyperlinks**: Every interaction with a resource is stateless, that is, request messages are self-contained. Stateful interactions are based on the concept of explicit state transfer. Several techniques exist to exchange state, such as **URI rewriting, cookies, and hidden form fields**. State can be embedded in response messages to point to valid future states of the interaction.
 
-### Q. 
+### Q. What are the most commonly used HTTP methods supported by REST?
+**GET** is only used to request data from a specified resource. Get requests can be cached and bookmarked. It remains in the browser history and has length restrictions. GET requests should never be used when dealing with sensitive data.
+
+**POST** is used to send data to a server to create/update a resource. POST requests are never cached and bookmarked and do not remain in the browser history.
+
+**PUT** replaces all current representations of the target resource with the request payload.
+
+**DELETE** removes the specified resource.
+
+**HEAD** asks for a response identical to that of a GET request, but without the response body.
+
+**OPTIONS** is used to describe the communication options for the target resource.
 
 ### Q. 
 

@@ -160,8 +160,37 @@ The Spring Web MVC framework provides **Model-View-Controller** architecture and
 
 **Flexible Mapping** - It provides the specific annotations that easily redirect the page.
 
+### Q. What is deployment descriptor?
+The **deployment descriptor** is a file named **web.xml**. It resides in the app's WAR under the **WEB-INF/** directory. The file is an XML file whose root element is ```<web-app>```.
+
+A web application's deployment descriptor describes the classes, resources and configuration of the application and how the web server uses them to serve web requests. When the web server receives a request for the application, it uses the deployment descriptor to **map the URL of the request to the code** that ought to handle the request.
+
+### Q. What are ApplicationContext and WebApplicationContext?
+Both **ApplicationContext** and **WebApplicationContext** are the **spring containers** where WebApplicationContext is child of the ApplicationContext interface.
+
+ApplicationContext (i.e. Root Application Context):
+
+In Spring Mvc, for every web application, applicationContext.xml file used as the root context configuration. Spring loads this file and creates the ApplicationContext for **whole application**. File applicationContext.xml is loaded by **ContextLoaderLoaderLinstner** which is configured into web.xml file as the context configuration. The default location and name of the Root Application Context are under WEB-INF folder and applicationContext.xml respectively and throw FileNotFoundException if it could not find this file in this location. Otherwise we have to declare explicitly the context configuration file name in web.xml using the contextConfigLocation param. There will be only one application context per web application.
+
+WebApplicationContext:
+
+WebApplicationContext, in Spring, is web aware ApplicationContext i.e it has **Servlet Context information**. In single web application there can be multiple WebApplicationContext. That means **each DispatcherServlet associated with single WebApplicationContext**. The WebApplicationContext configuration file *-servlet.xml is specific to the DispatcherServlet and a web application can have more than one DispatcherServlet configured to handle the requests and each DispatcherServlet would have a separate *-servlet.xml file to configure. But, applicationContext.xml will be common for all the servlet configuration files. By default DispatcherServlet loads file name servletName-servlet.xml from your webapps WEB-INF folder. If you want to change the name of that file name or change the location, add init-param with contextConfigLocation as param name.
+
+<img src="https://i1.wp.com/www.dineshonjava.com/wp-content/uploads/2017/02/ApplicationContext-vs-WebApplicationContext.png?w=530&ssl=1" height="230" width="500" />
+
+<img src="https://docs.spring.io/spring/docs/3.2.x/spring-framework-reference/html/images/mvc-contexts.gif" height="450" width="600" />
+
+### Q. What is ContextLoaderListener?
+ContextLoaderListener creates a **root web-application-context** for the web-application and puts it in the ServletContext. This context can be used to load and unload the spring-managed beans ir-respective of what technology is being used in the controller layer(Struts or Spring MVC).
+
 ### Q. What is DispatcherServlet?
 **DispatcherServlet** acts as **front controller** for Spring based web applications. It provides a mechanism for request processing where actual work is performed by configurable, delegate components. It is inherited from **javax.servlet.http.HttpServlet**, it is typically configured in the web.xml file.
+
+DispatcherServlet acts as a Servlet, but it does more than just that. It is completely integrated with the Spring **IoC container** so it allows you to use every feature that Spring has.
+
+After receiving an HTTP request, DispatcherServlet consults the **HandlerMapping** (configuration files) to call the appropriate Controller. The Controller takes the request and calls the appropriate service methods and set model data and then returns view name to the DispatcherServlet.
+
+The DispatcherServlet will take help from **ViewResolver** to pick up the defined view for the request. Once the view is finalized, the DispatcherServlet passes the model data to the view which is finally rendered on the browser.
 
 <img src="https://static.wixstatic.com/media/f03846_de0bb4b9e92342ceb9b5a8d8ed2bc407~mv2.png/v1/fill/w_630,h_379,al_c,q_85,usm_0.66_1.00_0.01/f03846_de0bb4b9e92342ceb9b5a8d8ed2bc407~mv2.webp" height="400" width="650" />
 
@@ -172,23 +201,26 @@ The DispatcherServlet is like any other Servlet class and it has to be declared 
 
 ```XML
 <web-app>
-
     <servlet>
-        <servlet-name>example</servlet-name>
-        <servlet-class>
-            org.springframework.web.servlet.DispatcherServlet
-        </servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:springmvc.xml</param-value>
+		</init-param>
+		
+		<load-on-startup>1</load-on-startup>	
+	</servlet>
 
-    <servlet-mapping>
-        <servlet-name>example</servlet-name>
-        <url-pattern>*.form</url-pattern>
-    </servlet-mapping>
-
+	<servlet-mapping>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<url-pattern>*.form</url-pattern>
+	</servlet-mapping>
 </web-app>
 ```
 In the preceding example, all requests ending with .form will be handled by the example DispatcherServlet. 
+
 
 ### Q. What is HandlerMapping?
 **HandlerMapping** is an interface that defines a mapping **between requests and handler objects**. While Spring MVC framework provides some ready-made implementations, the interface can be implemented by developers to provide customized mapping strategy.
@@ -204,6 +236,16 @@ The **DispatcherServlet** then uses a HandlerAdapter to invoke this method. The 
 The ViewResolver maps view names to actual views.
 
 And the Spring framework comes with quite a few view resolvers e.g. **InternalResourceViewResolver**, **XmlViewResolver**, **ResourceBundleViewResolver** and a few others.
+
+Take InternalResourceViewResolver class as example, it defines **prefix** and **suffix** properties to resolve the view component.
+
+```XML
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="prefix" value="/WEB-INF/views/" />
+    <property name="suffix" value=".jsp" />
+</bean>
+```
+So with above view resolver configuration, if controller method return “login” string, then the “/WEB-INF/views/login.jsp” file will be searched and rendered.
 
 ### Q. What does <mvc:annotation-driven /> do?
 **<mvc:annotation-driven />** tag defaults the basic components required for delegating the requests to your Controllers.
@@ -328,9 +370,30 @@ The @RequestParam annotation also supports data type conversion, e.g. you can se
 ### Q. Annotation @RequestBody and @ResponseBody explanation?
 **@RequestBody** and **@ResponseBody** annotations are used to bind the HTTP request/response body with a domain object in method parameter or return type. Behind the scenes, these annotation uses **HTTP Message converters** to convert the body of HTTP request/response to domain objects.
 
+Example of @RequestBody:
+```Java
+@PostMapping("/url")
+public urlBo getUrlByPhoneNumber(@RequestBody String json,HttpServetRequest request){
+    UrlBo ub=new Gson().fromJson(json,UrlBo.class);
+    ....
+}
+```
 
+Example of @ResponseBody:
+```Java
+@RequestMapping("/getList")
+@ResponseBody
+public Map<String,Object> getStudentList(HtppServletRequest request){
+    Map<String,Object> map=new HashMap<String,Object>();
+    Dto dto=getParamAsDto(request);
+    List li=studentAction.getList(dto.get("age"));
+    map.put("studentInfo",li);
+}
+}
+```
 
 **@PathVariable**
+
 
 **@RequestHeader**
 
@@ -386,3 +449,5 @@ public ModelAndView passParametersWithModelAndView() {
     return modelAndView;
 }
 ```
+
+### Q. What is a MultipartResolver and when its used?
