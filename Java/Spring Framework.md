@@ -47,7 +47,8 @@ At the core of the Spring Framework, lies the Spring container. The container cr
 <img src="https://images0.cnblogs.com/blog2015/285763/201508/091224415652965.jpg" height="2000" width="1500" />
 
 ### Q: What is Dependency Injection?
-Dependency Injection (DI) is a design pattern used to implement IoC. It allows the creation of dependent objects outside of a class and provides those objects to a class through different ways. Using DI, we move the creation and binding of the dependent objects outside of the class that depends on them.
+Dependency Injection (DI) is a design pattern used to implement IoC. It allows the creation of dependent objects outside of a class and provides those objects to a class through different ways. Using DI, we move the creation and binding of the dependent objects outside
+ of the class that depends on them.
 
 It bastically means that you do not create your objects but describe how they should be created. You don't directly connect your components and services together in code but describe which services are needed by which components in a configuration file. A container (the IOC container) is then responsible for hooking it all up.
 
