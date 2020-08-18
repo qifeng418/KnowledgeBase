@@ -44,7 +44,48 @@ Spring configuration file is an **XML file**. This file contains the classes inf
 
 At the core of the Spring Framework, lies the Spring container. The container creates the object, wires them together, configures them and manages their complete life cycle. The Spring container makes use of Dependency Injection to manage the components that make up an application. The container receives instructions for which objects to instantiate, configure, and assemble by reading the configuration metadata provided. This metadata can be provided either by XML, Java annotations or Java code.
 
+### Q. What are Beans in Spring?
+In Spring, the objects that form the backbone of your application and that are **managed by the Spring IoC container** are called beans. A bean is an object that is instantiated, assembled, and otherwise managed by a Spring IoC container. Otherwise, a bean is simply one of many objects in your application.
+
+<img src="https://docs.spring.io/spring/docs/3.2.x/spring-framework-reference/html/images/singleton.png" height="320" width="550" />
+
+### Q. What are Bean Factory and ApplicationContext?
 <img src="https://images0.cnblogs.com/blog2015/285763/201508/091224415652965.jpg" height="1000" width="1500" />
+
+Spring makes use of Java POJO classes and configuration metadata to produce a fully configured and executable system or application. There are two types of IoC containers:
+
+**Bean Factory**:
+
+It is an interface defined in **org.springframework.beans.factory.BeanFactory**. It provides the basic support for Dependency Injection. It is based on **factory design pattern** which creates the beans of any type. BeanFactory follows **lazy-initialization** technique which means beans are loaded as soon as bean factory instance is created but the beans are created only when getBean() method is called. The XmlBeanFactory is the implementation class for the BeanFactory interface. To use the BeanFactory, you need to create the instance of XmlBeanFactory class as shown below.
+
+```Java
+BeanFactory beanFactory = new XmlBeanFactory(new ClassPathResource("beans.xml"));
+```
+
+**ApplicationContext**:
+
+It is an interface defined in **org.springframework.context.ApplicationContext**. It is the advanced Spring container and is built on top of the BeanFactory interface. ApplicationContext supports the features supported by Bean Factory but also provides some additional functionalities. ApplicationContext follows **eager-initialization** technique which means instance of beans are created as soon as you create the instance of Application context. The ClassPathXmlApplicationContext class is the implementation class of ApplicationContext interface. You need to instantiate the ClassPathXmlApplicationContext class to use the ApplicationContext as shown below.
+
+```Java
+ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml"); 
+```
+
+**Conclusion**:
+
+The ApplicationContext includes all the functionality of the BeanFactory. It is generally recommended to use the former. There are some limited situations, such as in mobile applications, where memory consumption might be critical. In those scenarios, it would be justifiable to use the more lightweight BeanFactory. However, in most enterprise applications, the ApplicationContext is what you will want to use.
+
+### Q. What is IoC?
+**Inversion of Control** is a principle in software engineering by which the control of objects or portions of a program is transferred to a container or framework. It's most often used in the context of object-oriented programming.
+
+By contrast with traditional programming, in which our custom code makes calls to a library, IoC enables a framework to take control of the flow of a program and make calls to our custom code. To enable this, frameworks use abstractions with additional behavior built in. If we want to add our own behavior, we need to extend the classes of the framework or plugin our own classes.
+
+Inversion of Control can be achieved through various mechanisms such as: Strategy design pattern, Service Locator pattern, Factory pattern, and **Dependency Injection (DI)**.
+
+### Q. What are the advantages of IoC?
+1) **Decoupling** the execution of a task from its implementation
+making it easier to switch between different implementations
+greater modularity of a program.
+2) Greater ease in testing a program by **isolating** a component or mocking its dependencies and allowing components to communicate through contracts.
 
 ### Q: What is Dependency Injection?
 Dependency Injection (DI) is a design pattern used to implement IoC. It allows the creation of dependent objects outside of a class and provides those objects to a class through different ways. Using DI, we move the creation and binding of the dependent objects outside
@@ -52,22 +93,112 @@ Dependency Injection (DI) is a design pattern used to implement IoC. It allows t
 
 It bastically means that you do not create your objects but describe how they should be created. You don't directly connect your components and services together in code but describe which services are needed by which components in a configuration file. A container (the IOC container) is then responsible for hooking it all up.
 
+### Q. What are the ways of creating Beans using XML in Spring?
+
+1) Use default constructor
+```XML
+	<bean id="factory" class="com.qifeng.factory.Factory"></bean>
+```
+
+2) Use method in another class
+```XML
+    <bean id="factory" class="com.qifeng.factory.Factory"></bean>
+	<bean id="service" factory-bean="com.qifeng.factory.Factory" factory-method="getService"></bean>
+```
+
+3) Use static method in another class
+```XML
+	<bean id="service" class="com.qifeng.factory.Factory" factory-method="getService"></bean>
+```
+
+### Q. Explain Bean scopes?
+| Scope	| Description |
+| -- | -- |
+| singleton | Scopes a single bean definition to **a single object** instance per Spring IoC container. |
+| prototype | Scopes a single bean definition to **any number of object** instances. |
+| request | Scopes a single bean definition to the lifecycle of **a single HTTP request**; that is each and every HTTP request will have its own instance of a bean created off the back of a single bean definition. Only valid in the context of a web-aware Spring ApplicationContext. |
+| session | Scopes a single bean definition to the lifecycle of **a HTTP Session**. Only valid in the context of a web-aware Spring ApplicationContext. |
+| global session | Scopes a single bean definition to the lifecycle of **a global HTTP Session**. Typically only valid when used in a portlet context. Only valid in the context of a web-aware Spring ApplicationContext. |
+|  |  |
+
+### Q. Explain life cycle of Beans in Spring?
+When a bean is instantiated, it may be required to perform some initialization to get it into a usable state. Similarly, when the bean is no longer required and is removed from the container, some cleanup may be required.
+
+```XML
+	<bean id="factory" class="com.qifeng.factory.Factory"
+        init-method = "init"
+        destroy-method = "destroy">
+    </bean>
+```
+
 ### Q: What are the different types of IoC (dependency injection)?
 **Constructor-based dependency injection** − Constructor-based DI is accomplished when the container invokes a class constructor with a number of arguments, each representing a dependency on other class.
 
 **Setter-based dependency injection** − Setter-based DI is accomplished by the container calling setter methods on your beans after invoking a no-argument constructor or no-argument static factory method to instantiate your bean.
 
-### Q: Spring Setter vs. Constructor Injection
+### Q. How to use Constructor-based DI to inject data of Beans?
+```XML
+	<bean id="service" class="com.qifeng.service.serviceImpl" >
+        <constructor-arg name="name" value="Jason"></constructor-arg>
+        <constructor-arg name="age" value="25"></constructor-arg>
+        <constructor-arg name="birthday" ref="now"></constructor-arg>
+    </bean>
+    <bean id="now" class="java.Util.Date"></bean>
+```
+
+### Q. How to use Setter-based DI to inject data of Beans?
+```XML
+	<bean id="service" class="com.qifeng.service.serviceImpl" >
+        <property name="name" value="Jason"></property>
+        <property name="age" value="25"></property>
+        <property name="birthday" ref="now"></property>
+    </bean>
+    <bean id="now" class="java.Util.Date"></bean>
+```
+
+### Q. How to inject complex data type(List, Map, Set)?
+```XML
+	<bean id="service" class="com.qifeng.service.serviceImpl" >
+        <property name="myArr">
+            <array>
+                <value>AAA</value>
+                <value>BBB</value>
+            </array>
+        </property>
+
+        <property name="myList">
+            <list>
+                <value>AAA</value>
+                <value>BBB</value>
+            </list>
+        </property>
+
+        <property name="mySet">
+            <set>
+                <value>AAA</value>
+                <value>BBB</value>
+            </set>
+        </property>
+
+        <property name="myMap">
+            <map>
+                <entry key="keyA" value="AAA"></entry>
+                <entry key="keyB" value="BBB"></entry>
+            </map>
+        </property>
+    </bean>
+```
+
+### Q: Constructor Injection vs. Spring Setter?
 1) The fundamental difference between setter and constructor injection, as their name implies, is How dependency is injected.  Setter injection in Spring uses setter methods like setDependency() to inject dependency on any bean managed by Spring's IOC container. On the other hand, constructor injection uses the constructor to inject dependency on any Spring-managed bean.
 
-2) Because of using the setter method, setter Injection in more readable than constructor injection in Spring configuration file usually applicationContext.xml . Since the setter method has name like setReporotService() by reading Spring XML config file you know which dependency you are setting. While in constructor injection, since it uses an index to inject the dependency, it's not as readable as setter injection and you need to refer either Java documentation or code to find which index corresponds to which property.
+2) Because of using the setter method, setter Injection in more readable than constructor injection in Spring configuration file usually applicationContext.xml. Since the setter method has name like setReporotService() by reading Spring XML config file you know which dependency you are setting. While in constructor injection, since it uses an index to inject the dependency, it's not as readable as setter injection and you need to refer either Java documentation or code to find which index corresponds to which property.
 
 3) Another difference between setter vs constructor injection in Spring and one of the drawbacks of setter injection is that it does not ensures dependency Injection. You can not guarantee that certain dependency is injected or not, which means you may have an object with incomplete dependency. On the other hand, constructor Injection does not allow you to construct an object until your dependencies are ready.
 
 4) One more drawback of setter Injection is Security. By using setter injection, you can override certain dependency which is not possible with constructor injection because every time you call the constructor, a new object is gets created.
 
 5) One of our reader Murali Mohan Reddy pointed out one more difference between Setter and Constructor Injection in Spring, where later can help if there is a circular dependency between two object A and B.
-
 
 
 ## 📖 Spring AOP <div id="aop"></div>
