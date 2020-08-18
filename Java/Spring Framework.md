@@ -44,7 +44,7 @@ Spring configuration file is an **XML file**. This file contains the classes inf
 
 At the core of the Spring Framework, lies the Spring container. The container creates the object, wires them together, configures them and manages their complete life cycle. The Spring container makes use of Dependency Injection to manage the components that make up an application. The container receives instructions for which objects to instantiate, configure, and assemble by reading the configuration metadata provided. This metadata can be provided either by XML, Java annotations or Java code.
 
-<img src="https://images0.cnblogs.com/blog2015/285763/201508/091224415652965.jpg" height="1500" width="1500" />
+<img src="https://images0.cnblogs.com/blog2015/285763/201508/091224415652965.jpg" height="1000" width="1500" />
 
 ### Q: What is Dependency Injection?
 Dependency Injection (DI) is a design pattern used to implement IoC. It allows the creation of dependent objects outside of a class and provides those objects to a class through different ways. Using DI, we move the creation and binding of the dependent objects outside
