@@ -14,7 +14,7 @@
 Spring is an open source development framework for enterprise Java. The core features of the Spring Framework can be used in developing any Java application, but there are extensions for building web applications on top of the Java EE platform. Spring framework targets to make J2EE development easier to use and promote good programming practice by enabling a POJO-based programming model.
 
 ### Q. Describe Spring Ecosystem?
-<img src="https://d1jnx9ba8s6j9r.cloudfront.net/blog/wp-content/uploads/2017/06/ecosys.png" height="500" width="980" />
+<img src="https://www.softmelt.com/upload/images/Article/Java/springsystem.png" height="500" width="980" />
 
 ### Q: What are benefits of using spring?
 
