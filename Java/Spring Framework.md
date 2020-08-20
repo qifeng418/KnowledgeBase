@@ -203,6 +203,39 @@ When a bean is instantiated, it may be required to perform some initialization t
 
 5) One of our reader Murali Mohan Reddy pointed out one more difference between Setter and Constructor Injection in Spring, where later can help if there is a circular dependency between two object A and B.
 
+### Q. What are the Annotations use in Spring IoC?
+@Configuration
+
+@Import
+
+**@ComponentScan**: Configures component scanning directives for use with @Configuration classes. Here we can specify the base packages to scan for spring components.
+
+**@Component**: Indicates that an annotated class is a “component”. Such classes are considered as candidates for auto-detection when using annotation-based configuration and classpath scanning.
+
+**@Service**: Indicates that an annotated class is a “Service”. This annotation serves as a specialization of @Component, allowing for implementation classes to be autodetected through classpath scanning.
+
+**@Repository**: Indicates that an annotated class is a “Repository”. This annotation serves as a specialization of @Component and advisable to use with DAO classes.
+
+**@Autowired**: Spring @Autowired annotation is used for automatic injection of beans. Spring @Qualifier annotation is used in conjunction with Autowired to avoid confusion when we have two of more bean configured for same type.
+
+@Qualifier
+
+@Resource
+
+@Scope
+
+@PostConstruct
+
+@PreDestroy
+
+@Bean
+
+@PropertySource: provides a simple declarative mechanism for adding a property source to Spring’s Environment. There is a similar annotation for adding an array of property source files i.e @PropertySources.
+
+
+### Q. What is AnnotationConfigApplicationContext?
+
+
 
 ## 📖 Spring AOP <div id="aop"></div>
 
