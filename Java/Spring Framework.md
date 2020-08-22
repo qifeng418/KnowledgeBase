@@ -587,6 +587,7 @@ Besides using the existing implementations, we can make our own. To do so, we cr
 ### Q. What is Model?
 The model can supply attributes used for rendering views. To provide a view with usable data, we simply add this data to its Model object. Additionally, maps with attributes can be merged with Model instances.
 
+
 ```Java
 @GetMapping("/showViewPage")
 public String passParametersWithModel(Model model) {
