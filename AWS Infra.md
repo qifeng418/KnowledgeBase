@@ -1,5 +1,11 @@
 infra
 
+ALB: application load balancer
+NLB: network load balancer
+
+ECS： Elastic Container Service
+EKS: Elastic Kubernetes Service
+
 GCC: (Singapore)Government Commercial Cloud 
 GDC: Government Data Centre
 CSP: Cloud Service Provider
@@ -10,6 +16,7 @@ virtual private cloud (VPC)
 IBM HTTP Server (IHS)
 
 Safety Data Sheet (SDS)
+Lightweight Directory Access Protocol (LDAP)
 
 AWS Network Access Control List(NACL)?
 
