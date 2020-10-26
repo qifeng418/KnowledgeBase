@@ -1,37 +1,72 @@
-infra
+[terminology](#terminology)
 
-ALB: application load balancer
-NLB: network load balancer
+[AWS Services](#service)
 
+
+## 📖 Terminology <div id="terminology"></div>
+
+### Q: What is ALB and NLB?
+ALB stands for application load balancer.
+NLB stands for network load balancer.
+
+### Q: What is  ECS and EKS?
 ECS： Elastic Container Service
 EKS: Elastic Kubernetes Service
 
-GCC: (Singapore)Government Commercial Cloud 
-GDC: Government Data Centre
-CSP: Cloud Service Provider
-CMP: Cloud Management Portal
+### Q: What is GCC? 
+GCC stands for Singapore)Government Commercial Cloud.
 
-virtual private cloud (VPC)
+### Q: What is GDC?
+GDC stands for Government Data Centre.
 
-IBM HTTP Server (IHS)
+### Q: What is CSP?
+CSP stands for Cloud Service Provider
 
-Safety Data Sheet (SDS)
-Lightweight Directory Access Protocol (LDAP)
+### Q: What is CMP?
+CMP stands for Cloud Management Portal
 
-AWS Network Access Control List(NACL)?
+### Q: What is VPC?
+VPC stands for virtual private cloud 
 
-NAT: Network address translation
+### Q: What is IBM HTTP Server (IHS)
 
-Center for Internet Security (CIS) Docker Benchmark
+### Q: What is Safety Data Sheet (SDS)
+
+### Q: What is Lightweight Directory Access Protocol (LDAP)
+
+### Q: What is AWS Network Access Control List(NACL)?
+
+### Q: What is NAT: Network address translation
+
+### Q: What is Center for Internet Security (CIS) Docker Benchmark
 
 
-UAT: User Acceptance Testing
-SIT: System Integration Testing
+### Q: What is 
+
+
+## 📖 AWS Services <div id="service"></div>
 
 
 
-An OP is an OpenID Provider, that is, a site which provides an authentication service using the OpenID standard.
+### Q: What is Spring?
 
-An RP is a relying party, that is, a site which uses the OpenID standard to authenticate users by making service requests to OpenID provider.
+<img src="" height="200" width="400" />
 
-An identity provider (abbreviated IdP or IDP) is a system entity that creates, maintains, and manages identity information for principals while providing authentication services to relying applications within a federation or distributed network.
+**Spring** is an open source ***development framework*** for enterprise Java.
+
+| Col | Col |
+| -- | -- |
+| Row | Row |
+|    |    |
+
+```Java
+public static void main(String[] args) {
+
+}
+```
+
+### Q: 
+
+### Q: 
+
+
