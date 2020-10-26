@@ -179,18 +179,4 @@ The instance variables and class variables are generally called member variables
 
 ### Q. 
 
-
-
-## 📖 Java Servlet <div id="servlet"></div>
-
-### Q. What is RedirectAttributes?
-**RedirectAttributes** is a sub-interface of Model. It is a preferred way to pass attributes to redirect target. Using Model attributes for passing redirection data is not always desirable as it may conflict some attributes used for rendering purposes.
-
-### Q. addAttribute() vs addFlashAttribute() ?
-**addFlashAttribute()** actually stores the attributes in a flashmap (which is internally maintained in the users session and removed once the next redirected request gets fulfilled)
-
-**addAttribute()** essentially constructs request parameters out of your attributes and redirects to the desired page with the request parameters.
-
-The advantage of addFlashAttribute() will be that you can store pretty much any object in your flash attribute (as it is not serialized into request params at all, but maintained as an object), whereas with addAttribute() since the object that you add gets transformed to a normal request param, you are pretty limited to the object types like String or primitives.
-
-### Q. 
+### Q.  
