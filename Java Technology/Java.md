@@ -1,15 +1,7 @@
-[JVM](#jvm)
-
-[Java Basics](#basics)
-
-[Java OOP](#oop)
-
-[Java Servlet](#servlet)
+[TOC]
 
 
-
-
-## 📖 Java JVM <div id="jvm"></div>
+## 📖 Java JVM
 
 ### Q. Differences between JDK, JRE and JVM.
 <img src="https://beginnersbook.com/wp-content/uploads/2013/05/jdk.jpg" height="300" width="600" />
@@ -75,7 +67,7 @@ Java garbage collection is the process by which Java programs perform automatic 
 ### Q. How Java Garbage Collection Works?
 
 
-## 📖 Java Basics <div id="basics"></div>
+## 📖 Java Basics
 
 ### Q. What is Java?
 Java is a general-purpose **programming language** that is class-based, object-oriented, and designed to have as few implementation dependencies as possible. It is intended to let application developers write once, run anywhere (WORA), meaning that compiled Java code can run on all platforms that support Java without the need for recompilation. Java applications are typically compiled to bytecode that can run on any Java virtual machine (JVM) regardless of the underlying computer architecture.
@@ -142,9 +134,8 @@ There are two types of constructors:
 Equals() method is defined in Object class in Java and **used for checking equality of two objects** defined by business logic. ***public boolean equals(Object o)*** is the method provided by the Object class. The default implementation uses == operator to compare two objects. For example: method can be overridden like String class. equals() method is used to compare the values of two objects.
 
 
-### Q. 
 
-## 📖 Java OOP <div id="oop"></div>
+## 📖 Java OOP
 
 ### Q. What is Object Oriented Programming?
 Object-oriented programming (OOP) is a programming paradigm based on the concept of "objects", which can contain data and code: data in the form of fields (often known as attributes or properties), and code, in the form of procedures (often known as methods).

@@ -1,23 +1,9 @@
-[Web Application](#web)
-
-[Servlet and Container](#servlet)
-
-[Request](#request)
-
-[Response](#response)
-
-[ServletContext](#context)
-
-[Session Tracking](#track)
-
-[Cookies](#cookies)
-
-[Session](#session)
-
-[Filter](#filter)
+[TOC]
 
 
-## 📖 Web Application <div id="web"></div>
+
+
+## 📖 Web Application
 
 ### Q: Web Server vs. Application Server?
 A web server‘s fundamental job is to accept and fulfill requests from clients for static content from a website (HTML pages, files, images, video, and so on). The client is almost always a **browser** or **mobile application** and the request takes the form of a Hypertext Transfer Protocol (HTTP) message, as does the web server’s response.
@@ -41,7 +27,7 @@ However, it's not really meant to function as a high performance web server, nor
 ### Q: Static webpage vs Dynamic webpage?
 The webpages which are same for all the users are static webpages and the webpages that are dynamically generated based on the user’s request (that may be different for each user depending on the request) are known as dynamic webpages. Servlet is mainly used for dynamic webpages.
 
-## 📖 Servlet <div id="servlet"></div>
+## 📖 Servlet 
 
 ### Q: What is servlet?
 Java Servlets are server-side Java program modules that process and answer client requests and implement the servlet interface. It helps in enhancing Web server functionality with minimal overhead, maintenance and support.
@@ -165,7 +151,7 @@ No, we do not override the service() method. We generally override the doPost(),
 
 
 
-## 📖 Request <div id="request"></div>
+## 📖 Request 
 
 ### Q: Explain Servlet chaining?
 Servlet chaining is a concept where the request is processed in a chain of servlets. First Servlet processes the request partially and passes to the second one, then second servlet process it and passes to third one and so on. The last servlet returns the response to the client (browser).
@@ -252,7 +238,7 @@ removeAttribute(String name)
 ServletContext servletContext = request.getServletContext();
 ```
 
-## 📖 Response <div id="response"></div>
+## 📖 Response 
 
 ### Q. What are the info included in a Response?
 1) Status Line
@@ -331,7 +317,7 @@ response.sendRedirect("/project/response2");
 
 The advantage of addFlashAttribute() will be that you can store pretty much any object in your flash attribute (as it is not serialized into request params at all, but maintained as an object), whereas with addAttribute() since the object that you add gets transformed to a normal request param, you are pretty limited to the object types like String or primitives.
 
-## 📖 ServletContext <div id="context"></div>
+## 📖 ServletContext 
 
 
 ### Q. What is MINE type?
@@ -355,7 +341,7 @@ ServletConfig and ServletContext, both are objects created at the time of servle
 | Use ServletConfig when only one servlet needs information shared by it | Use ServletContext when whole application needs information shared by it |
 
 
-## 📖 Session Tracking <div id="track"></div>
+## 📖 Session Tracking 
 
 ### Q. What is Stateless?
 In computing, a **stateless protocol** is a communications protocol in which no session information is retained by the receiver, usually a server. Relevant session data is sent to the receiver by the client in such a way that every packet of information transferred can be understood in isolation, without context information from previous packets in the session. This property of stateless protocols makes them ideal in **high volume applications**, increasing performance by removing server load caused by retention of session information.
@@ -376,7 +362,7 @@ This entry means that, when the form is submitted, the specified name and value 
 4) **HttpSession**
 
 
-## 📖 Cookies <div id="cookies"></div>
+## 📖 Cookies 
 
 ### Q. What is Coolies in Servelt?
 
@@ -411,7 +397,7 @@ There are several disadvantages of using cookies for session tracking. Few of th
 3) Cookies only work for HTTP protocol.
 
 
-## 📖 Session <div id="session"></div>
+## 📖 Session 
 
 ### Q. What is HttpSession?
 <img src="https://lh3.googleusercontent.com/proxy/CGK4X2fDQGbTFW3I0fMsTt9ftPaKR_BdhypgYqPVCeRqEY7sWu4lMK4ZlectLATXqlCbg0RwDA_htVuQZmuARiJuLzX-4Glnhg" height="300" width="600" />
@@ -465,7 +451,7 @@ By calling session.invalidate() method.
 5) Cookie does not have a function named **unsetcookie()** while in Session you can use **Session_destroy()**; which is used to destroy all registered data or to unset some
 
 
-## 📖 Filter <div id="filter"></div>
+## 📖 Filter 
 
 Q 33. Why we use filters in Servlet?
 We use filters for:

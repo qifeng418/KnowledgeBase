@@ -1,4 +1,7 @@
+[TOC]
+
 ## 📖 XML
+
 [XML Tutorial Reference](https://www.w3schools.com/xml/default.asp)
 ### Q: What is a markup language?
 Markup languages are designed for presentation of text in different formats, and it can also be used for transporting and storing data. This markup language specifies the code for formatting, layout and style of data .This markup code is called Tag.

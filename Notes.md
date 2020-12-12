@@ -1,7 +1,3 @@
-[Infra](#infra)
-
-## 📖 Infra <div id="infra"></div>
-
 ### Q: What is 3-Tier Architecture?
 
 GCC: (Singapore)Government Commercial Cloud 

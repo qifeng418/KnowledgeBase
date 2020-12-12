@@ -1,10 +1,6 @@
-[](#)
+[TOC]
 
-[](#)
 
-[](#)
-
-[](#)
 
 ### Q. What are main differences between API and Web Service?
 1) All Web services are APIs but not all APIs are Web services.
