@@ -4,33 +4,6 @@
 
 ### Q: What is 3-Tier Architecture?
 
-
-
-<img src="" height="200" width="400" />
-
-**Spring** is an open source ***development framework*** for enterprise Java.
-
-| Col | Col |
-| -- | -- |
-| Row | Row |
-|    |    |
-
-```Java
-public static void main(String[] args) {
-
-}
-```
-
-### Q: 
-
-### Q: 
-
-### Q: 
-
-### Q: 
-
-infra
-
 GCC: (Singapore)Government Commercial Cloud 
 GDC: Government Data Centre
 CSP: Cloud Service Provider
